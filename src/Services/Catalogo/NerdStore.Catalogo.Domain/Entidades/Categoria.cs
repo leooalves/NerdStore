@@ -1,6 +1,7 @@
 ﻿
 using NerdStore.Catalogo.Domain.Entidades.Validacoes;
 using NerdStore.Shared.Entidades;
+using System.Collections.Generic;
 
 namespace NerdStore.Catalogo.Domain.Entidades
 {
@@ -19,7 +20,8 @@ namespace NerdStore.Catalogo.Domain.Entidades
         public string Nome { get; private set; }
         public int Codigo { get; private set; }
 
- 
-      
+        // EF Relation
+        public ICollection<Produto> Produtos { get; set; }
+
     }
 }
