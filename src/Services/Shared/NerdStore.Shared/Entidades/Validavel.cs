@@ -1,25 +1,21 @@
 ﻿
+using FluentValidation;
 using FluentValidation.Results;
 
 namespace NerdStore.Shared.Entidades
 {
     public abstract class Validavel
     {        
-        public ValidationResult Validacoes { get; set; }
+        public ValidationResult ResultadoValidacao { get; protected set; }
 
-        public bool EhValida
+        public bool EhValida => ResultadoValidacao.IsValid;
+
+        public bool EhInvalida => !EhValida;
+
+        public void Validar<TModel>(TModel model, AbstractValidator<TModel> validator)
         {
-            get
-            {
-                return Validacoes.IsValid;
-            }
+            ResultadoValidacao = validator.Validate(model);            
         }
-        public bool EhInvalida
-        {
-            get
-            {
-                return !Validacoes.IsValid;
-            }
-        }
+
     }
 }

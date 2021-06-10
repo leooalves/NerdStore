@@ -9,17 +9,6 @@ namespace NerdStore.Catalogo.Domain.Entidades
 {
     public class Produto : Entity, IAggregateRoot
     {
-        public Guid CategoriaId { get; private set; }
-        public string Nome { get; private set; }
-        public string Descricao { get; private set; }
-        public bool Ativo { get; private set; }
-        public decimal Valor { get; private set; }
-        public DateTime DataCadastro { get; private set; }
-        public string Imagem { get; private set; }
-        public int QuantidadeEstoque { get; private set; }
-        public Dimensoes Dimensoes { get; private set; }
-        public Categoria Categoria { get; private set; }
-
         protected Produto() { }
         public Produto(string nome, string descricao, bool ativo, decimal valor, Guid categoriaId, DateTime dataCadastro, string imagem, Dimensoes dimensoes)
         {
@@ -32,8 +21,19 @@ namespace NerdStore.Catalogo.Domain.Entidades
             Imagem = imagem;
             Dimensoes = dimensoes;
 
-            Validar();
+            Validar(this, new ProdutoValidator());
         }
+
+        public Guid CategoriaId { get; private set; }
+        public string Nome { get; private set; }
+        public string Descricao { get; private set; }
+        public bool Ativo { get; private set; }
+        public decimal Valor { get; private set; }
+        public DateTime DataCadastro { get; private set; }
+        public string Imagem { get; private set; }
+        public int QuantidadeEstoque { get; private set; }
+        public Dimensoes Dimensoes { get; private set; }
+        public Categoria Categoria { get; private set; }   
 
         public void Ativar() => Ativo = true;
 
@@ -43,19 +43,20 @@ namespace NerdStore.Catalogo.Domain.Entidades
         {
             Categoria = categoria;
             CategoriaId = categoria.Id;
+            ResultadoValidacao = categoria.ResultadoValidacao;
         }
 
         public void AlterarDescricao(string descricao)
         {            
             Descricao = descricao;
-            Validacoes = new ProdutoValidator().Validate(this, options => options.IncludeRuleSets("Descricao"));
+            Validar(this,new ProdutoValidator());
         }
 
         public void DebitarEstoque(int quantidade)
         {
-            if (quantidade < 0) quantidade *= -1;
-            //if (!PossuiEstoque(quantidade)) throw new DomainException("Estoque insuficiente");
+            if (quantidade < 0) quantidade *= -1;            
             QuantidadeEstoque -= quantidade;
+            Validar(this, new ProdutoDebitarEstoqueValidator());
         }
 
         public void ReporEstoque(int quantidade)
@@ -68,9 +69,6 @@ namespace NerdStore.Catalogo.Domain.Entidades
             return QuantidadeEstoque >= quantidade;
         }
 
-        public void Validar()
-        {
-            Validacoes = new ProdutoValidator().Validate(this);
-        }
+       
     }
 }
