@@ -20,6 +20,7 @@ namespace NerdStore.Catalogo.Domain.Entidades
             DataCadastro = DateTime.Now;
             Imagem = imagem;
             Dimensoes = dimensoes;
+            QuantidadeMinimaReporEstoque = 3;
 
             Validar(this, new ProdutoValidator());
         }
@@ -32,6 +33,8 @@ namespace NerdStore.Catalogo.Domain.Entidades
         public DateTime DataCadastro { get; private set; }
         public string Imagem { get; private set; }
         public int QuantidadeEstoque { get; private set; }
+        public int QuantidadeMinimaReporEstoque{ get; private set; }
+
         public Dimensoes Dimensoes { get; private set; }
         public Categoria Categoria { get; private set; }   
 
