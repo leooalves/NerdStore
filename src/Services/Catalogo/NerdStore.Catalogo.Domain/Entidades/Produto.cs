@@ -10,14 +10,14 @@ namespace NerdStore.Catalogo.Domain.Entidades
     public class Produto : Entity, IAggregateRoot
     {
         protected Produto() { }
-        public Produto(string nome, string descricao, bool ativo, decimal valor, Guid categoriaId, DateTime dataCadastro, string imagem, Dimensoes dimensoes)
+        public Produto(string nome, string descricao, bool ativo, decimal valor, Guid categoriaId, string imagem, Dimensoes dimensoes)
         {
             CategoriaId = categoriaId;
             Nome = nome;
             Descricao = descricao;
             Ativo = ativo;
             Valor = valor;
-            DataCadastro = dataCadastro;
+            DataCadastro = DateTime.Now;
             Imagem = imagem;
             Dimensoes = dimensoes;
 
@@ -41,9 +41,15 @@ namespace NerdStore.Catalogo.Domain.Entidades
 
         public void AlterarCategoria(Categoria categoria)
         {
-            Categoria = categoria;
-            CategoriaId = categoria.Id;
-            ResultadoValidacao = categoria.ResultadoValidacao;
+            if (categoria.EhValida)
+            {
+                Categoria = categoria;
+                CategoriaId = categoria.Id;
+            }
+            else
+            {
+                ResultadoValidacao = categoria.ResultadoValidacao;
+            }                        
         }
 
         public void AlterarDescricao(string descricao)
