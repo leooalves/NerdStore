@@ -82,7 +82,7 @@
                         <p class="price">@produto.Valor.ToString("C")</p>
                         <hr class="line">
                         <div class="row">
-                            <a asp-controller="AdminProdutos" asp-action="AtualizarProduto" asp-route-id="@produto.Id" class="btn btn-success right">Editar</a> &nbsp;
+                            <a asp-controller="AdminProdutos" asp-action="EditarProduto" asp-route-id="@produto.Id" class="btn btn-success right">Editar</a> &nbsp;
                             <a asp-controller="AdminProdutos" asp-action="AtualizarEstoque" asp-route-id="@produto.Id" class="btn btn-info right">Estoque</a>
                         </div>
                     </span>

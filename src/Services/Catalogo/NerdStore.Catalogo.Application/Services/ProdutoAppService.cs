@@ -60,13 +60,35 @@ namespace NerdStore.Catalogo.Application.Services
         }
 
         public async Task<RespostaPadrao> AtualizarProduto(ProdutoViewModel produtoViewModel)
-        {
-            _produtoRepository.Atualizar(_mapper.Map<Produto>(produtoViewModel));
+        {            
+            var produtoAnterior = await _produtoRepository.ObterProdutoPorId(produtoViewModel.Id);
+            if(produtoAnterior == null)
+                return new RespostaPadrao("Produto não encontrado", true);
+
+            produtoViewModel.QuantidadeEstoque = produtoAnterior.QuantidadeEstoque;
+
+            var produto = _mapper.Map<Produto>(produtoViewModel);
+
+            _produtoRepository.Atualizar(produto);
+
             var resultado = await _produtoRepository.UnitOfWork.Commit();
             if (resultado)
                 return new RespostaPadrao("Produto atualizado com sucesso", true);
 
             return new RespostaPadrao("Erro ao atualizar o produto", false);
+        }
+
+        public async Task<RespostaPadrao> AdicionarCategoria(CategoriaViewModel categoriaViewModel)
+        {
+            var categoria = _mapper.Map<Categoria>(categoriaViewModel);
+            _produtoRepository.Adicionar(categoria);
+
+            var resultado = await _produtoRepository.UnitOfWork.Commit();
+            if (resultado)
+                return new RespostaPadrao("Categoria adicionada com sucesso", true);
+
+            return new RespostaPadrao("Erro ao adicionar a categoria", false);
+
         }
 
 
@@ -87,5 +109,7 @@ namespace NerdStore.Catalogo.Application.Services
 
             return new RespostaPadrao("Erro ao fazer a reposição do estoque", false);
         }
+
+
     }
 }
