@@ -1,6 +1,6 @@
 ﻿
 using NerdStore.Catalogo.Domain.Entidades;
-using NerdStore.Shared.Repository;
+using NerdStore.Shared.Infra;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

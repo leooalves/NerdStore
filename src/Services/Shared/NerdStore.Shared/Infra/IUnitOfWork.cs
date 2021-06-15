@@ -1,7 +1,7 @@
 ﻿
 using System.Threading.Tasks;
 
-namespace NerdStore.Shared.Repository
+namespace NerdStore.Shared.Infra
 {
     public interface IUnitOfWork
     {

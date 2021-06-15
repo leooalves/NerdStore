@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using NerdStore.Catalogo.Domain.Entidades;
-using NerdStore.Shared.Repository;
+using NerdStore.Shared.Infra;
 using System;
 using System.Linq;
 using System.Threading.Tasks;

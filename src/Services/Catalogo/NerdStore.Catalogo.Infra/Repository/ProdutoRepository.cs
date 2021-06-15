@@ -4,7 +4,7 @@
 using NerdStore.Catalogo.Domain.Entidades;
 using NerdStore.Catalogo.Domain.Repository;
 using NerdStore.Catalogo.Infra.DataContext;
-using NerdStore.Shared.Repository;
+using NerdStore.Shared.Infra;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -36,7 +36,7 @@ namespace NerdStore.Catalogo.Infra.Repository
 
         public void Atualizar(Produto produto)
         {
-            _context.Produtos.Update(produto);
+            _context.Produtos.Update(produto);            
         }
 
         public void Atualizar(Categoria categoria)
