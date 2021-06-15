@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NerdStore.Catalogo.Application.AutoMapper;
 using NerdStore.Catalogo.Infra.DataContext;
+using NerdStore.Web.MVC.Setup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +30,13 @@ namespace NerdStore.Web.MVC
         {
             services.AddControllersWithViews();
 
+            services.AddMediatR(typeof(Startup));
+
+            services.AddAutoMapper(typeof(DomainToViewModelProfile), typeof(ViewModelToDomainProfile));
+
             services.AddDbContext<CatalogoContext>(options => options.UseInMemoryDatabase("Database"));
+
+            services.RegisterServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

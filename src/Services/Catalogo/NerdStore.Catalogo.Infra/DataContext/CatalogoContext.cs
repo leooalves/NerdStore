@@ -6,6 +6,8 @@ using NerdStore.Shared.Infra;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace NerdStore.Catalogo.Infra.DataContext
 {
@@ -23,6 +25,7 @@ namespace NerdStore.Catalogo.Infra.DataContext
                 e => e.GetProperties().Where(p => p.ClrType == typeof(string))))
                 property.SetColumnType("varchar(100)");
 
+            modelBuilder.Ignore<ValidationResult>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogoContext).Assembly);
         }
 
