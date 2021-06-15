@@ -22,17 +22,17 @@ namespace NerdStore.Catalogo.Domain.Service
 
         public async Task<bool> DebitarEstoque(Guid produtoId, int quantidade)
         {
-            var produto = await _produtoRepository.ObterPorId(produtoId);
+            var produto = await _produtoRepository.ObterProdutoPorId(produtoId);
 
             if (produto == null) return false;
 
             if (!produto.PossuiEstoque(quantidade)) return false;
 
-            produto.DebitarEstoque(quantidade);
+            produto.DebitarEstoque(quantidade);            
             
             if (produto.QuantidadeEstoque <= produto.QuantidadeMinimaReporEstoque)
             {
-                await _mediatr.PublicarEvento(new ProdutoAbaixoEstoqueEvent(produto.Id, produto.QuantidadeEstoque));
+                await _mediatr.PublicarEvento(new ProdutoAbaixoEstoqueEvent(produto.Id, produto.QuantidadeEstoque, produto.QuantidadeMinimaReporEstoque));
             }
 
             _produtoRepository.Atualizar(produto);
@@ -41,7 +41,7 @@ namespace NerdStore.Catalogo.Domain.Service
 
         public async Task<bool> ReporEstoque(Guid produtoId, int quantidade)
         {
-            var produto = await _produtoRepository.ObterPorId(produtoId);
+            var produto = await _produtoRepository.ObterProdutoPorId(produtoId);
 
             if (produto == null) return false;
             produto.ReporEstoque(quantidade);

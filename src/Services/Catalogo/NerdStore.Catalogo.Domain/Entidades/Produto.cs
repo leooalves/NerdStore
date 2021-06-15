@@ -3,21 +3,21 @@
 using NerdStore.Catalogo.Domain.Entidades.Validacoes;
 using NerdStore.Shared.Entidades;
 using System;
-using FluentValidation;
+
 
 namespace NerdStore.Catalogo.Domain.Entidades
 {
     public class Produto : Entity, IAggregateRoot
     {
         protected Produto() { }
-        public Produto(string nome, string descricao, bool ativo, decimal valor, Guid categoriaId, string imagem, Dimensoes dimensoes)
+        public Produto(string nome, string descricao, bool ativo, decimal valor, DateTime dataCadastro , Guid categoriaId, string imagem, Dimensoes dimensoes)
         {
             CategoriaId = categoriaId;
             Nome = nome;
             Descricao = descricao;
             Ativo = ativo;
             Valor = valor;
-            DataCadastro = DateTime.Now;
+            DataCadastro = dataCadastro;
             Imagem = imagem;
             Dimensoes = dimensoes;
             QuantidadeMinimaReporEstoque = 3;

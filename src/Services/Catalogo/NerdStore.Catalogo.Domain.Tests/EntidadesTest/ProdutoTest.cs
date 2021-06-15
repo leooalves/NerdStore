@@ -19,7 +19,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_sem_nome_deve_dar_erro()
         {
-            var produto = new Produto(string.Empty, "Descricao", true, 10, Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
+            var produto = new Produto(string.Empty, "Descricao", true, 10,DateTime.Now ,Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldHaveValidationErrorFor("Nome");
         }
@@ -27,7 +27,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_sem_descricao_deve_dar_erro()
         {
-            var produto = new Produto("Nome", string.Empty, true, 10, Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
+            var produto = new Produto("Nome", string.Empty, true, 10, DateTime.Now, Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldHaveValidationErrorFor("Descricao");
         }
@@ -35,7 +35,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_sem_imagem_deve_dar_erro()
         {
-            var produto = new Produto("Nome", "descricao", true, 10, Guid.NewGuid(), string.Empty, new Dimensoes(1, 1, 1));
+            var produto = new Produto("Nome", "descricao", true, 10, DateTime.Now, Guid.NewGuid(), string.Empty, new Dimensoes(1, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldHaveValidationErrorFor("Imagem");
         }
@@ -43,7 +43,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_sem_categoria_deve_dar_erro()
         {
-            var produto = new Produto("Nome", "descricao", true, 10, Guid.Empty, string.Empty, new Dimensoes(1, 1, 1));
+            var produto = new Produto("Nome", "descricao", true, 10, DateTime.Now, Guid.Empty, string.Empty, new Dimensoes(1, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldHaveValidationErrorFor("CategoriaId");
         }
@@ -51,7 +51,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_com_valor_menor_que_zero_deve_dar_erro()
         {
-            var produto = new Produto("Nome", "descricao", true, -1, Guid.Empty, string.Empty, new Dimensoes(1, 1, 1));
+            var produto = new Produto("Nome", "descricao", true, -1, DateTime.Now, Guid.Empty, string.Empty, new Dimensoes(1, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldHaveValidationErrorFor("Valor");
         }
@@ -59,7 +59,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_com_dimensao_invalida_deve_dar_erro()
         {
-            var produto = new Produto("Nome", "descricao", true, 0, Guid.NewGuid(), "Imagem", new Dimensoes(0, 1, 1));
+            var produto = new Produto("Nome", "descricao", true, 0, DateTime.Now, Guid.NewGuid(), "Imagem", new Dimensoes(0, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldHaveValidationErrorFor(p => p.Dimensoes.Altura);
         }
@@ -67,7 +67,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_valido_nao_deve_dar_erro()
         {
-            var produto = new Produto("Nome", "descricao", true, 0, Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
+            var produto = new Produto("Nome", "descricao", true, 0, DateTime.Now, Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldNotHaveAnyValidationErrors();
         }

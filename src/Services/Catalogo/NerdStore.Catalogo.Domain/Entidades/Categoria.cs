@@ -24,4 +24,6 @@ namespace NerdStore.Catalogo.Domain.Entidades
         public ICollection<Produto> Produtos { get; set; }
 
     }
+
+ 
 }

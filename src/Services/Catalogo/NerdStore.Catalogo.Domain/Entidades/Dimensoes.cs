@@ -28,8 +28,8 @@ namespace NerdStore.Catalogo.Domain.Entidades
         public override string ToString()
         {
             return DescricaoFormatada();
-        }
-
-     
+        }     
     }
+
+  
 }
