@@ -51,7 +51,12 @@ namespace NerdStore.Catalogo.Application.Services
 
         public async Task<RespostaPadrao> AdicionarProduto(ProdutoViewModel produtoViewModel)
         {
-            _produtoRepository.Adicionar(_mapper.Map<Produto>(produtoViewModel));
+            var produto = _mapper.Map<Produto>(produtoViewModel);
+            
+            if (produto.EhInvalido)
+                return new RespostaPadrao("Erro ao criar o produto", false, produto.ResultadoValidacao);
+
+            _produtoRepository.Adicionar(produto);
             var resultado = await _produtoRepository.UnitOfWork.Commit();
             if (resultado)
                 return new RespostaPadrao("Produto adicionado com sucesso", true);
@@ -67,7 +72,10 @@ namespace NerdStore.Catalogo.Application.Services
 
             produtoViewModel.QuantidadeEstoque = produtoAnterior.QuantidadeEstoque;
 
-            var produto = _mapper.Map<Produto>(produtoViewModel);
+            var produto = _mapper.Map<Produto>(produtoViewModel);            
+
+            if (produto.EhInvalido)
+                return new RespostaPadrao("Erro ao atualizar o produto", false, produto.ResultadoValidacao);
 
             _produtoRepository.Atualizar(produto);
 
@@ -81,6 +89,10 @@ namespace NerdStore.Catalogo.Application.Services
         public async Task<RespostaPadrao> AdicionarCategoria(CategoriaViewModel categoriaViewModel)
         {
             var categoria = _mapper.Map<Categoria>(categoriaViewModel);
+
+            if(categoria.EhInvalido)
+                return new RespostaPadrao("Erro ao adicionar a categoria", false,categoria.ResultadoValidacao);
+
             _produtoRepository.Adicionar(categoria);
 
             var resultado = await _produtoRepository.UnitOfWork.Commit();

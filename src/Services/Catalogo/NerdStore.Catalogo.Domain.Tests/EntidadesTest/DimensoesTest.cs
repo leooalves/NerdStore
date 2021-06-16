@@ -11,7 +11,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         {
             var dimensoes = new Dimensoes(0,1,1);
 
-            Assert.IsTrue(dimensoes.EhInvalida);
+            Assert.IsTrue(dimensoes.EhInvalido);
         }
 
         [TestMethod]
@@ -19,7 +19,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         {
             var dimensoes = new Dimensoes(1,0, 1);
 
-            Assert.IsTrue(dimensoes.EhInvalida); ;
+            Assert.IsTrue(dimensoes.EhInvalido); ;
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         {
             var dimensoes = new Dimensoes(1, 1, 0);
 
-            Assert.IsTrue(dimensoes.EhInvalida);
+            Assert.IsTrue(dimensoes.EhInvalido);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         {
             var dimensoes = new Dimensoes(1, 1, 1);
 
-            Assert.IsTrue(dimensoes.EhValida);
+            Assert.IsTrue(dimensoes.EhValido);
         }
     }
 }

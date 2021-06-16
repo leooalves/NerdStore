@@ -22,7 +22,7 @@ namespace NerdStore.Catalogo.Domain.Entidades
             Dimensoes = dimensoes;
             QuantidadeMinimaReporEstoque = 3;
 
-            Validar(this, new ProdutoValidator());
+            Validar();
         }
 
         public Guid CategoriaId { get; private set; }
@@ -44,7 +44,7 @@ namespace NerdStore.Catalogo.Domain.Entidades
 
         public void AlterarCategoria(Categoria categoria)
         {
-            if (categoria.EhValida)
+            if (categoria.EhValido)
             {
                 Categoria = categoria;
                 CategoriaId = categoria.Id;
@@ -58,7 +58,7 @@ namespace NerdStore.Catalogo.Domain.Entidades
         public void AlterarDescricao(string descricao)
         {            
             Descricao = descricao;
-            Validar(this,new ProdutoValidator());
+            Validar();
         }
 
         public void DebitarEstoque(int quantidade)
@@ -76,6 +76,11 @@ namespace NerdStore.Catalogo.Domain.Entidades
         public bool PossuiEstoque(int quantidade)
         {
             return QuantidadeEstoque >= quantidade;
+        }
+
+        public void Validar()
+        {
+            Validar(this, new ProdutoValidator());
         }
 
        

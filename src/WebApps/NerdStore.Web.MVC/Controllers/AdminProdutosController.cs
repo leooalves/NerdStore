@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Application.ViewModel;
+using NerdStore.Shared.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -179,8 +180,6 @@ namespace NerdStore.Web.MVC.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-
-
             return View(await _produtoAppService.ObterTodosProdutos());
         }
 
@@ -198,9 +197,15 @@ namespace NerdStore.Web.MVC.Controllers
             if (!ModelState.IsValid) 
                 return View(await PopularCategorias(produtoViewModel));
 
-            await _produtoAppService.AdicionarProduto(produtoViewModel);
+            var resposta = await _produtoAppService.AdicionarProduto(produtoViewModel);
 
-            return RedirectToAction("Index");
+            if(resposta.Sucesso)
+                return RedirectToAction("Index");
+
+
+            TempData["Erro"] = ObterMensagensErro(resposta);
+            return View(produtoViewModel);
+            
         }
 
         [HttpGet]
@@ -215,6 +220,7 @@ namespace NerdStore.Web.MVC.Controllers
         [Route("editar-produto")]
         public async Task<IActionResult> EditarProduto(ProdutoViewModel produtoViewModel)
         {
+            ModelState.Remove("QuantidadeEstoque");
             if (!ModelState.IsValid) 
                 return View(await PopularCategorias(produtoViewModel));
 
@@ -232,25 +238,35 @@ namespace NerdStore.Web.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("produtos-atualizar-estoque/")]
+        [Route("produtos-atualizar-estoque")]
         public async Task<IActionResult> AtualizarEstoque(Guid idProduto, int quantidade)
         {
+            var resposta = new RespostaPadrao("", true);
             if(quantidade > 0)
             {
-                await _produtoAppService.ReporEstoqueProduto(idProduto, quantidade);
+                resposta = await _produtoAppService.ReporEstoqueProduto(idProduto, quantidade);
             }
             else
             {
-                await _produtoAppService.DebitarEstoqueProduto(idProduto, quantidade);
+                resposta = await _produtoAppService.DebitarEstoqueProduto(idProduto, quantidade);
             }
 
-            return View("Index", await _produtoAppService.ObterTodosProdutos());
+            if(resposta.Sucesso)
+                return View("Index", await _produtoAppService.ObterTodosProdutos());
+
+            TempData["Erro"] = ObterMensagensErro(resposta);
+            return View("Estoque", await _produtoAppService.ObterProdutoPorId(idProduto));
         }
 
         private async Task<ProdutoViewModel> PopularCategorias(ProdutoViewModel produto)
         {
             produto.Categorias = await _produtoAppService.ObterTodasCategorias();
             return produto;
+        }
+
+        private string ObterMensagensErro(RespostaPadrao resposta)
+        {
+            return resposta.Mensagem;
         }
     }
 }

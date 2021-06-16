@@ -24,11 +24,12 @@ namespace NerdStore.Catalogo.Domain.Service
         {
             var produto = await _produtoRepository.ObterProdutoPorId(produtoId);
 
-            if (produto == null) return false;
+            if (produto == null) return false;            
 
-            if (!produto.PossuiEstoque(quantidade)) return false;
+            produto.DebitarEstoque(quantidade);
 
-            produto.DebitarEstoque(quantidade);            
+            if (produto.EhInvalido)
+                return false;
             
             if (produto.QuantidadeEstoque <= produto.QuantidadeMinimaReporEstoque)
             {

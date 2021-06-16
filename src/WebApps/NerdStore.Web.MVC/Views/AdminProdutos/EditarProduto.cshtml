@@ -4,11 +4,13 @@
     ViewData["Title"] = "AtualizarProduto";
 }
 
+<vc:sumario />
+
 <h1>Editar Produto</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AtualizarProduto">
+        <form asp-action="EditarProduto">
             <div asp-validation-summary="All" class="text-danger"></div>
 
             <input type="hidden" asp-for="Id" />

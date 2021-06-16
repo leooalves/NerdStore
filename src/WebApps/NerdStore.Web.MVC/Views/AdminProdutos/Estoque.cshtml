@@ -4,6 +4,9 @@
 }
 
 <div class="container">
+
+    <vc:summary />
+
     <div class="row">
         <div class="col-xs-4 item-photo">
             <img width="400" height="400" src="~/Images/@Model.Imagem" />
@@ -19,7 +22,7 @@
 
             <div class="section" style="padding-bottom:20px;">
                 <form method="post" asp-controller="AdminProdutos" asp-action="AtualizarEstoque">
-                    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+                    <input type="hidden" id="Id" name="idProduto" value="@Model.Id" />
                     <input type="text" id="quantidade" name="quantidade" />
                     <button class="btn btn-info">Atualizar Estoque</button>
                 </form>

@@ -8,9 +8,9 @@ namespace NerdStore.Shared.Entidades
     {        
         public ValidationResult ResultadoValidacao { get; protected set; }
 
-        public bool EhValida => ResultadoValidacao.IsValid;
+        public bool EhValido => ResultadoValidacao.IsValid;
 
-        public bool EhInvalida => !EhValida;
+        public bool EhInvalido => !EhValido;
 
         public void Validar<TModel>(TModel model, AbstractValidator<TModel> validator)
         {

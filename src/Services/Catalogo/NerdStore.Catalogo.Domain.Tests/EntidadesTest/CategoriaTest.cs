@@ -11,7 +11,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         {
             var categoria = new Categoria(string.Empty,100);
 
-            Assert.IsTrue(categoria.EhInvalida);
+            Assert.IsTrue(categoria.EhInvalido);
         }
 
         [TestMethod]
@@ -19,7 +19,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         {
             var categoria = new Categoria("Nome da Categoria", 0);
 
-            Assert.IsTrue(categoria.EhInvalida);
+            Assert.IsTrue(categoria.EhInvalido);
         }
 
         [TestMethod]
@@ -27,7 +27,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         {
             var categoria = new Categoria("Nome da Categoria", 100);
 
-            Assert.IsTrue(categoria.EhValida);
+            Assert.IsTrue(categoria.EhValido);
         }
 
     }
