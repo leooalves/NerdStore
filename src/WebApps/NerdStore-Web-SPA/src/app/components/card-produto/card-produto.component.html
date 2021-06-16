@@ -1,20 +1,20 @@
 
-    <div class="uk-card uk-card-default uk-margin-small-bottom">          
+    <div class="uk-card uk-card-hover uk-card-default uk-margin-small-bottom">          
         <div class="uk-card-body">
             <div class="uk-card-media-top">
-                <img src="https://via.placeholder.com/200" width="200" height="200">
+                <img src="../../../assets/imagens/{{produto.imagem}}" class="uk-margin-small-top" width="150" height="150">
             </div>                
-            <h3 class="uk-margin-small-top uk-margin-small-bottom">Camiseta Teste Leonardo</h3>                
-            <small>10 em estoque</small>
+            <h3 class="uk-margin-small-top uk-margin-small-bottom">{{produto.nome}}</h3>                
+            <small>{{produto.quantidadeEstoque}} em estoque</small>
             <br>
-            <small>Descricao da camiseta teste</small>
-            <p class="preco-produto">R$ 60,00</p>
+            <small>{{produto.descricao}}</small>
+            <p class="preco-produto">{{ produto.valor | currency: 'BRL' }}</p>
         </div>
          
         <div class="uk-card-footer">                     
-            <div class="uk-flex-inline">
-                <button class="uk-button uk-button-default ">Editar</button>
-                <button class="uk-button uk-button-secondary ">Estoque</button>
+            <div class="uk-flex uk-flex-center">
+                <button class="uk-button uk-button-small uk-button-default ">Editar</button>
+                <button class="uk-button uk-button-small uk-button-secondary ">Estoque</button>
             </div>                                                                              
         </div>
     </div>

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Produto } from 'src/app/models/produto.model';
+import { DataService } from 'src/app/services/data.service';
+
 
 @Component({
   selector: 'app-admin-produtos-page',
@@ -7,9 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminProdutosPageComponent implements OnInit {
 
-  constructor() { }
+  public produtos$: Observable<Produto[]>;
+
+  constructor(private data: DataService) { }
 
   ngOnInit(): void {
+    this.produtos$ = this.data.getProdutos();
+    console.log(this.produtos$);
   }
 
 }

@@ -1,10 +1,16 @@
-export class Product {
-    public _id: string;
-    public title: string;
-    public category: string;
-    public description: string;
-    public price: number;
-    public images: string[] = [];
+export class Produto {
+    public id: string;
+    public categoriaId: string;
+    public nome: string;
+    public descricao: string;
+    public ativo: boolean;
+    public valor: number;
+    public dataCadastro: Date;
+    public imagem: string;
+    public quantidadeEstoque: number;
+    public altura: number;
+    public largura: number;
+    public profundidade: number;
 
     constructor() {
 

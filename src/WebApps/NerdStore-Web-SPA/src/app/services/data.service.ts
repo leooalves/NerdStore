@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
-import { Product } from '../models/produto.model';
+import { Produto } from '../models/produto.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DataService {
 
-    public url: string = "https://localhost:44387/v1";
+    public url: string = "https://localhost:44386/api/v1";
 
     constructor(private http: HttpClient) { }
 
@@ -17,13 +17,11 @@ export class DataService {
     //     return headers;
     // }
 
-    getProducts() {
-        return this.http.get<Product[]>(`${this.url}/products`)
+    getProdutos() {
+        return this.http.get<Produto[]>(`${this.url}/produto`)
     }
 
-    authenticate(data: any) {
-        return this.http.post<Product[]>(`${this.url}/accounts/authenticate`, data)
+    getcategorias() {
+        return this.http.get<Produto[]>(`${this.url}/produto/categoria`)
     }
-
-
 }
