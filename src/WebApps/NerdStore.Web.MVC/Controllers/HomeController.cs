@@ -1,11 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NerdStore.Web.MVC.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace NerdStore.Web.MVC.Controllers
 {
@@ -20,7 +16,7 @@ namespace NerdStore.Web.MVC.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("CargaInicial", "AdminProdutos");
+            return RedirectToAction("Index", "AdminProdutos");
             //return View();
         }
 

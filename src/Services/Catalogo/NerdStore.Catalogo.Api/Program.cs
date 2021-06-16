@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NerdStore.Catalogo.Infra.DataContext;
 
-namespace NerdStore.Web.MVC
+namespace NerdStore.Catalogo.Api
 {
     public class Program
     {
