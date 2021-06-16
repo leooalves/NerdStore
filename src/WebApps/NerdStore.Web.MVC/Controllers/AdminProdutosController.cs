@@ -17,12 +17,17 @@ namespace NerdStore.Web.MVC.Controllers
         {
             _produtoAppService = produtoAppService;
         }
+
         #region CargaInicial
 
         [HttpGet]
         [Route("carga-inicial")]
         public async Task<IActionResult> CargaInicial()
         {
+            var categorias = await _produtoAppService.ObterTodasCategorias();
+            if (categorias.Any())
+                return RedirectToAction("Index");
+
             var categoriaCamiseta = new CategoriaViewModel
             {
                 Codigo = 101,
@@ -204,7 +209,7 @@ namespace NerdStore.Web.MVC.Controllers
 
 
             TempData["Erro"] = ObterMensagensErro(resposta);
-            return View(produtoViewModel);
+            return View(await PopularCategorias(new ProdutoViewModel()));
             
         }
 
@@ -225,8 +230,11 @@ namespace NerdStore.Web.MVC.Controllers
                 return View(await PopularCategorias(produtoViewModel));
 
             var resposta = await _produtoAppService.AtualizarProduto(produtoViewModel);
-            
-            return RedirectToAction("Index");
+            if(resposta.Sucesso)
+                return RedirectToAction("Index");
+
+            TempData["Erro"] = ObterMensagensErro(resposta);
+            return View(await PopularCategorias(produtoViewModel));
         }
 
 
