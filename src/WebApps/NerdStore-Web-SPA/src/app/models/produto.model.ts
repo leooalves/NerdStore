@@ -11,6 +11,7 @@ export class Produto {
     public altura: number;
     public largura: number;
     public profundidade: number;
+    public categorias: any[];
 
     constructor() {
 

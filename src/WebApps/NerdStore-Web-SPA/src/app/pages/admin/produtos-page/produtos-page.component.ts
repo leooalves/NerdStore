@@ -5,9 +5,9 @@ import { DataService } from 'src/app/services/data.service';
 
 
 @Component({
-  selector: 'app-admin-produtos-page',
-  templateUrl: './admin-produtos-page.component.html',
-  styleUrls: ['./admin-produtos-page.component.css']
+  selector: 'app-produtos-page',
+  templateUrl: './produtos-page.component.html',
+  styleUrls: ['./produtos-page.component.css']
 })
 export class AdminProdutosPageComponent implements OnInit {
 

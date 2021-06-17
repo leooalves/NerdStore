@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminProdutosPageComponent } from './pages/admin-produtos-page/admin-produtos-page.component';
+import { EditarProdutoPageComponent } from './pages/admin/editar-produto-page/editar-produto-page.component';
+import { AdminProdutosPageComponent } from './pages/admin/produtos-page/produtos-page.component';
 import { MasterPageComponent } from './pages/master-page/master-page.component';
 
 const routes: Routes = [
@@ -8,7 +9,8 @@ const routes: Routes = [
     path: "",
     component: MasterPageComponent,
     children: [
-      { path: "", component: AdminProdutosPageComponent }
+      { path: "", component: AdminProdutosPageComponent },
+      { path: "editar-produto/:id", component: EditarProdutoPageComponent }
     ]
   }
 ];

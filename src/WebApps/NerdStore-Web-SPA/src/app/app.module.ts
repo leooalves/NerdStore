@@ -6,9 +6,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { MasterPageComponent } from './pages/master-page/master-page.component';
-import { AdminProdutosPageComponent } from './pages/admin-produtos-page/admin-produtos-page.component';
+import { AdminProdutosPageComponent } from './pages/admin/produtos-page/produtos-page.component';
 import { CardProdutoComponent } from './components/card-produto/card-produto.component';
 import { DataService } from './services/data.service';
+import { EditarProdutoPageComponent } from './pages/admin/editar-produto-page/editar-produto-page.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { DataService } from './services/data.service';
     NavbarComponent,
     MasterPageComponent,
     AdminProdutosPageComponent,
-    CardProdutoComponent
+    CardProdutoComponent,
+    EditarProdutoPageComponent
   ],
   imports: [
     BrowserModule,
