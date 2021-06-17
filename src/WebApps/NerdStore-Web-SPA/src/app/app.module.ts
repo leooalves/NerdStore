@@ -10,6 +10,8 @@ import { AdminProdutosPageComponent } from './pages/admin/produtos-page/produtos
 import { CardProdutoComponent } from './components/card-produto/card-produto.component';
 import { DataService } from './services/data.service';
 import { EditarProdutoPageComponent } from './pages/admin/editar-produto-page/editar-produto-page.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -24,7 +26,8 @@ import { EditarProdutoPageComponent } from './pages/admin/editar-produto-page/ed
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

@@ -17,7 +17,6 @@ export class AdminProdutosPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.produtos$ = this.data.getProdutos();
-    console.log(this.produtos$);
   }
 
 }

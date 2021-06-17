@@ -30,27 +30,25 @@ namespace NerdStore.Catalogo.Infra.DataContext
         }
 
         private static IEnumerable<Produto> CargaInicialProduto(IEnumerable<Categoria> categorias)
-        {
-            var dimensao = new Dimensoes(1, 1, 1);
-
+        {            
             return new List<Produto>()
             {
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta1.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta1.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta2.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta2.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta3.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta3.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta4.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta4.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Caneca Starbugs", "Caneca Starbugs branca", true, 30M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca1.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca1.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Caneca Starbugs", "Caneca Starbugs branca", true, 30M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca2.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca2.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Caneca Starbugs", "Caneca Starbugs branca", true, 30M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca3.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca3.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Caneca Starbugs", "Caneca Starbugs branca", true, 30M, DateTime.Now,
-                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca4.jpg", dimensao),
+                            categorias.First(categoria => categoria.Nome=="Canecas").Id, "caneca4.jpg", new Dimensoes(1M, 1M, 1M)),
         };
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,22 @@ namespace NerdStore.Catalogo.Api.Controllers
         {
             var produtos = await _produtoAppService.ObterTodosProdutos();
             return Ok(await PopularCategorias(produtos.ToList()));
+        }
+
+        [HttpGet]
+        [Route("{id:guid}")]
+        public async Task<IActionResult> GetProdutoPorId(Guid id)
+        {
+            var produto = await _produtoAppService.ObterProdutoPorId(id);
+            return Ok(await PopularCategorias(produto));
+        }
+
+        [HttpPut]
+        [Route("")]
+        public async Task<IActionResult> AtualizaProduto(ProdutoViewModel produto)
+        {
+            var resposta = await _produtoAppService.AtualizarProduto(produto);
+            return Ok(resposta);
         }
 
         [HttpGet]

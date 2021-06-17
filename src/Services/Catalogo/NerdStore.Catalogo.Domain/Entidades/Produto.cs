@@ -22,6 +22,8 @@ namespace NerdStore.Catalogo.Domain.Entidades
             Dimensoes = dimensoes;
             QuantidadeMinimaReporEstoque = 3;
 
+            this.ReporEstoque(new Random().Next(0,10));
+
             Validar();
         }
 

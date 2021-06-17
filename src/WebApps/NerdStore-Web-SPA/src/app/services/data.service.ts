@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Produto } from '../models/produto.model';
+import { RespostaPadrao } from '../models/resposta.padrao.model';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,14 @@ export class DataService {
 
     getProdutos() {
         return this.http.get<Produto[]>(`${this.url}/produto`)
+    }
+
+    getProdutoPorId(id: string) {
+        return this.http.get<Produto>(`${this.url}/produto/${id}`)
+    }
+
+    atualizaProduto(produto: any) {
+        return this.http.put<RespostaPadrao>(`${this.url}/produto`, produto)
     }
 
     getcategorias() {
