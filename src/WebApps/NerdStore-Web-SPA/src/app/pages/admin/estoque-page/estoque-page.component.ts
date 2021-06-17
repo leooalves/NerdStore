@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Produto } from 'src/app/models/produto.model';
 import { DataService } from 'src/app/services/data.service';
 
+
 @Component({
-  selector: 'app-editar-produto-page',
-  templateUrl: './editar-produto-page.component.html'
+  selector: 'app-estoque-page',
+  templateUrl: './estoque-page.component.html'
 })
-export class EditarProdutoPageComponent implements OnInit {
+export class EstoquePageComponent implements OnInit {
 
   public produto$: Observable<Produto>;
-  private produto: Produto;
+  public produto: Produto;
   public produtoId: string;
   public form: FormGroup;
-  public categorias: any[];
 
   constructor(
     private data: DataService,
@@ -25,39 +25,11 @@ export class EditarProdutoPageComponent implements OnInit {
     private toastr: ToastrService,
     private activatedRoute: ActivatedRoute) {
     this.form = this.fb.group({
-      nome: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.maxLength(80),
+      quantidadeEstoque: ['', Validators.compose([
+        Validators.min(-999),
+        Validators.max(999),
         Validators.required
       ])],
-      descricao: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.maxLength(80),
-        Validators.required
-      ])],
-      ativo: [true],
-      valor: ['', Validators.compose([
-        Validators.min(0),
-        Validators.required
-      ])],
-      imagem: ['', Validators.compose([
-        Validators.minLength(3),
-        Validators.maxLength(80),
-        Validators.required
-      ])],
-      altura: ['0', Validators.compose([
-        Validators.min(0),
-        Validators.required
-      ])],
-      largura: ['0', Validators.compose([
-        Validators.min(0),
-        Validators.required
-      ])],
-      profundidade: ['0', Validators.compose([
-        Validators.min(0),
-        Validators.required
-      ])],
-      categoriaId: [],
       id: []
     });
   }
@@ -72,9 +44,7 @@ export class EditarProdutoPageComponent implements OnInit {
     this.produto$.subscribe(resposta => {
 
       this.produto = resposta;
-      this.form.patchValue(this.produto)
-
-      this.categorias = this.produto.categorias;
+      //this.form.patchValue(this.produto)
     })
   }
 

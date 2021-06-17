@@ -1,0 +1,123 @@
+<div class="uk-container" >
+
+    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
+        <div class="uk-card-media-left">
+            <img src="../../../../assets/imagens/camiseta1.jpg" width="500" height="400" >            
+        </div>
+        <div>
+            <div class="uk-card-body">
+                <h2 class=""> <b>{{produto.nome}}</b> </h2>
+                <h2>{{ produto.valor | currency: 'BRL' }}</h2>
+                <p>Apenas {{produto.quantidadeEstoque}} em estoque</p>                
+                <p>{{produto.descricao}}</p>
+
+                <form [formGroup]="form">
+                    
+                    <div class="uk-margin">                        
+                        <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number"
+                        formControlName="quantidadeEstoque">
+                    </div>
+
+                    <div class="uk-margin">                        
+                        <button [disabled]="form.invalid" class="uk-button uk-button-default" (click)="Salvar()" >Atualizar Estoque</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="uk-card uk-card-default uk-box-shadow-small">
+        <div class="uk-card-media-left uk-cover-container">
+            <img src="../../../../assets/imagens/camiseta1.jpg">
+        </div>
+        <div>
+            <div class="uk-card-body">
+                Texto
+            </div>
+        </div>                
+    </div> -->
+
+    <!-- <form [formGroup]="form">
+        <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+        
+          
+            <div class="uk-margin">                
+                <label>Categoria</label>
+                <br>
+                <select class="uk-select uk-width-1-2@l uk-width-1-1@s"
+                formControlName="categoriaId">
+                    <option *ngFor="let categoria of categorias; let i = index" [value]="categoria.id">
+                    {{categoria.nome}}
+                  </option>
+                </select>
+            </div>         
+
+            <div class="uk-margin">
+                <label>Nome</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s"  type="text" placeholder="Nome" 
+                formControlName="nome">
+            </div>
+
+            <div class="uk-margin">
+                <label>Descricao</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="text" placeholder="Descricao"
+                formControlName="descricao">
+            </div>
+
+
+            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                <label><input class="uk-checkbox " type="checkbox" checked
+                    formControlName="ativo"> Ativo</label>                
+            </div>
+
+            <div class="uk-margin">
+                <label>Valor</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="text" placeholder="Valor"
+                formControlName="valor">
+            </div>
+
+            <div class="uk-margin">
+                <label>Imagem</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="text" placeholder="Imagem"
+                formControlName="imagem">
+            </div>
+
+            <div class="uk-margin">
+                <label>Altura</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number" placeholder="Altura"
+                formControlName="altura">
+            </div>
+
+            <div class="uk-margin">
+                <label>Largura</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number" placeholder="Largura"
+                formControlName="largura">
+            </div>
+
+            <div class="uk-margin">
+                <label>Profundidade</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number" placeholder="Profundidade"
+                formControlName="profundidade">
+            </div>
+
+            <input formControlName="id" hidden value="{{produtoId}}">
+
+            <div class="uk-margin">
+                <button  class="uk-button uk-button-default" [routerLink]="['']" >Voltar</button>
+                <button [disabled]="form.invalid" class="uk-button uk-button-default" (click)="Salvar()" >Atualizar</button>
+            </div>
+        </div>
+    </form> -->
+
+</div>
+        
+
+      
+      

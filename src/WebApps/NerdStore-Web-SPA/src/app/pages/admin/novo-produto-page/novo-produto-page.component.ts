@@ -3,13 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { Produto } from 'src/app/models/produto.model';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-novo-produto-page',
-  templateUrl: './novo-produto-page.component.html',
-  styleUrls: ['./novo-produto-page.component.css']
+  templateUrl: './novo-produto-page.component.html'
 })
 export class NovoProdutoPageComponent implements OnInit {
 

@@ -14,6 +14,8 @@ import { CardProdutoComponent } from './components/card-produto/card-produto.com
 import { DataService } from './services/data.service';
 import { EditarProdutoPageComponent } from './pages/admin/editar-produto-page/editar-produto-page.component';
 import { NovoProdutoPageComponent } from './pages/admin/novo-produto-page/novo-produto-page.component';
+import { CatalogoPageComponent } from './pages/catalogo-page/catalogo-page.component';
+import { EstoquePageComponent } from './pages/admin/estoque-page/estoque-page.component';
 
 
 
@@ -27,7 +29,9 @@ import { NovoProdutoPageComponent } from './pages/admin/novo-produto-page/novo-p
     AdminProdutosPageComponent,
     CardProdutoComponent,
     EditarProdutoPageComponent,
-    NovoProdutoPageComponent
+    NovoProdutoPageComponent,
+    CatalogoPageComponent,
+    EstoquePageComponent
   ],
   imports: [
     BrowserModule,
