@@ -43,6 +43,14 @@ namespace NerdStore.Catalogo.Api.Controllers
             return Ok(resposta);
         }
 
+        [HttpPost]
+        [Route("")]
+        public async Task<IActionResult> CriaProduto(ProdutoViewModel produto)
+        {
+            var resposta = await _produtoAppService.AdicionarProduto(produto);
+            return Ok(resposta);
+        }
+
         [HttpGet]
         [Route("categoria")]
         public async Task<IActionResult> TodasCategorias()
@@ -52,12 +60,16 @@ namespace NerdStore.Catalogo.Api.Controllers
 
         private async Task<ProdutoViewModel> PopularCategorias(ProdutoViewModel produto)
         {
+            if (produto == null)
+                return produto;
             produto.Categorias = await _produtoAppService.ObterTodasCategorias();
             return produto;
         }
 
         private async Task<List<ProdutoViewModel>> PopularCategorias(List<ProdutoViewModel> produtos)
         {
+            if (produtos.Count == 0)
+                return produtos;
             var categorias = await _produtoAppService.ObterTodasCategorias();
             foreach (var produto in produtos)
             {

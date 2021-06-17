@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { ToastrModule } from 'ngx-toastr';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +13,9 @@ import { AdminProdutosPageComponent } from './pages/admin/produtos-page/produtos
 import { CardProdutoComponent } from './components/card-produto/card-produto.component';
 import { DataService } from './services/data.service';
 import { EditarProdutoPageComponent } from './pages/admin/editar-produto-page/editar-produto-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NovoProdutoPageComponent } from './pages/admin/novo-produto-page/novo-produto-page.component';
+
+
 
 
 
@@ -21,13 +26,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     MasterPageComponent,
     AdminProdutosPageComponent,
     CardProdutoComponent,
-    EditarProdutoPageComponent
+    EditarProdutoPageComponent,
+    NovoProdutoPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [DataService],
   bootstrap: [AppComponent]

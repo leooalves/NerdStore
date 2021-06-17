@@ -1,0 +1,92 @@
+<div class="uk-container" >
+    <h2>Editar Produto</h2>
+    <hr>
+
+    <form [formGroup]="form">
+        <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
+          
+            <div class="uk-margin">                
+                <label>Categoria</label>
+                <br>
+                <select class="uk-select uk-width-1-2@l uk-width-1-1@s"
+                formControlName="categoriaId">
+                    <option *ngFor="let categoria of categorias; let i = index" [value]="categoria.id">
+                    {{categoria.nome}}
+                  </option>
+                </select>
+            </div>         
+
+            <div class="uk-margin">
+                <label>Nome</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s"  type="text" placeholder="Nome" 
+                formControlName="nome">
+            </div>
+
+            <div class="uk-margin">
+                <label>Descricao</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="text" placeholder="Descricao"
+                formControlName="descricao">
+            </div>
+
+
+            <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                <label><input class="uk-checkbox " type="checkbox" checked
+                    formControlName="ativo"> Ativo</label>                
+            </div>
+
+            <div class="uk-margin">
+                <label>Valor</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="text" placeholder="Valor"
+                formControlName="valor">
+            </div>
+
+            <div class="uk-margin">
+                <label>Imagem</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="text" placeholder="Imagem"
+                formControlName="imagem">
+            </div>
+
+            <div class="uk-margin">
+                <label>Quantidade no Estoque</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number" placeholder="Quantidade Estoque"
+                formControlName="quantidadeEstoque">
+            </div>
+
+            <div class="uk-margin">
+                <label>Altura</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number" placeholder="Altura"
+                formControlName="altura">
+            </div>
+
+            <div class="uk-margin">
+                <label>Largura</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number" placeholder="Largura"
+                formControlName="largura">
+            </div>
+
+            <div class="uk-margin">
+                <label>Profundidade</label>
+                <br>
+                <input class="uk-input uk-width-1-2@l uk-width-1-1@s" type="number" placeholder="Profundidade"
+                formControlName="profundidade">
+            </div>            
+
+            <div class="uk-margin">
+                <button  class="uk-button uk-button-default" [routerLink]="['']" >Voltar</button>
+                <button [disabled]="form.invalid" class="uk-button uk-button-default" (click)="submit()" >Salvar</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+        
+
+      
+      

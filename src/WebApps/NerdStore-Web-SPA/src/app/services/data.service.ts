@@ -30,7 +30,11 @@ export class DataService {
         return this.http.put<RespostaPadrao>(`${this.url}/produto`, produto)
     }
 
-    getcategorias() {
-        return this.http.get<Produto[]>(`${this.url}/produto/categoria`)
+    criaProduto(produto: any) {
+        return this.http.post<RespostaPadrao>(`${this.url}/produto`, produto)
+    }
+
+    getCategorias() {
+        return this.http.get<any[]>(`${this.url}/produto/categoria`)
     }
 }

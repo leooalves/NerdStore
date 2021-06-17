@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Produto } from 'src/app/models/produto.model';
 import { DataService } from 'src/app/services/data.service';
 
 @Component({
-  selector: 'app-editar-produto-page',
-  templateUrl: './editar-produto-page.component.html',
-  styleUrls: ['./editar-produto-page.component.css']
+  selector: 'app-novo-produto-page',
+  templateUrl: './novo-produto-page.component.html',
+  styleUrls: ['./novo-produto-page.component.css']
 })
-export class EditarProdutoPageComponent implements OnInit {
+export class NovoProdutoPageComponent implements OnInit {
 
-  public produto$: Observable<Produto>;
-  private produto: Produto;
-  public produtoId: string;
   public form: FormGroup;
+  public categorias$: Observable<any[]>;
   public categorias: any[];
 
   constructor(
@@ -58,30 +56,25 @@ export class EditarProdutoPageComponent implements OnInit {
         Validators.min(0),
         Validators.required
       ])],
-      categoriaId: [],
-      id: []
+      quantidadeEstoque: ['0', Validators.compose([
+        Validators.min(0),
+        Validators.required
+      ])],
+      categoriaId: []
     });
   }
 
   ngOnInit(): void {
 
-    this.activatedRoute.params.subscribe(parameter => {
-      this.produtoId = parameter.id
-    })
-
-    this.produto$ = this.data.getProdutoPorId(this.produtoId);
-    this.produto$.subscribe(resposta => {
-
-      this.produto = resposta;
-      this.form.patchValue(this.produto)
-
-      this.categorias = this.produto.categorias;
+    this.categorias$ = this.data.getCategorias();
+    this.categorias$.subscribe(resposta => {
+      this.categorias = resposta
     })
   }
 
-  Salvar() {
+  submit() {
 
-    this.data.atualizaProduto(this.form.value)
+    this.data.criaProduto(this.form.value)
       .subscribe(resposta => {
         if (resposta.sucesso) {
           this.toastr.success(resposta.mensagem);
