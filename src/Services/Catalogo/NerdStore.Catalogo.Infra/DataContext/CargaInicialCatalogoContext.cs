@@ -16,7 +16,8 @@ namespace NerdStore.Catalogo.Infra.DataContext
             {
                 var categorias = CargaInicialCategoria();
                 catalogoContext.Categorias.AddRange(categorias);
-                catalogoContext.Produtos.AddRange(CargaInicialProduto(categorias));
+                var produtos = CargaInicialProduto(categorias);
+                catalogoContext.Produtos.AddRange(produtos);
                 catalogoContext.SaveChangesAsync();
             }
         }
@@ -33,6 +34,7 @@ namespace NerdStore.Catalogo.Infra.DataContext
         {            
             return new List<Produto>()
             {
+
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,
                             categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta1.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,

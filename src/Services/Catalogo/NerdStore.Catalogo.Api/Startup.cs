@@ -42,7 +42,9 @@ namespace NerdStore.Catalogo.Api
 
             services.AddAutoMapper(typeof(DomainToViewModelProfile), typeof(ViewModelToDomainProfile));
 
-            services.AddDbContext<CatalogoContext>(options => options.UseInMemoryDatabase("Database1"));
+            services.AddDbContext<CatalogoContext>(options => {
+                options.UseInMemoryDatabase("Database1");          
+            });
 
             services.RegistrarDependencias();
         }

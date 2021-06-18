@@ -28,6 +28,8 @@ namespace NerdStore.Catalogo.Infra.DataContext
 
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Notification>();
+            modelBuilder.Ignore<Dimensoes>();
+
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogoContext).Assembly);
         }
 
