@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,11 +5,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using NerdStore.Catalogo.Api.Setup;
-using NerdStore.Catalogo.Application.AutoMapper;
-using NerdStore.Catalogo.Infra.DataContext;
+using NerdStore.Vendas.Domain.Repository;
+using NerdStore.Vendas.Infra.DataContext;
+using NerdStore.Vendas.Infra.Repository;
 
-namespace NerdStore.Catalogo.Api
+namespace NerdStore.Vendas.Api
 {
     public class Startup
     {
@@ -24,27 +23,16 @@ namespace NerdStore.Catalogo.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
-                    });
-            });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NerdStore.Catalogo.Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "NerdStore.Vendas.Api", Version = "v1" });
             });
 
-            services.AddMediatR(typeof(Startup));
+            services.AddDbContext<VendasContext>(opt => opt.UseInMemoryDatabase("Database"));
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
 
-            services.AddAutoMapper(typeof(DomainToViewModelProfile), typeof(ViewModelToDomainProfile));
-
-            services.AddDbContext<CatalogoContext>(options => options.UseInMemoryDatabase("Database1"));
-
-            services.RegistrarDependencias();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,13 +40,10 @@ namespace NerdStore.Catalogo.Api
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();                
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NerdStore.Vendas.Api v1"));
             }
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NerdStore.Catalogo.Api v1"));
-
-            app.UseCors();
 
             app.UseHttpsRedirection();
 
