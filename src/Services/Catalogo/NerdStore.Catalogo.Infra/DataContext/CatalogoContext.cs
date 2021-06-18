@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
+using NerdStore.Shared.Entidades;
 
 namespace NerdStore.Catalogo.Infra.DataContext
 {
@@ -26,6 +27,7 @@ namespace NerdStore.Catalogo.Infra.DataContext
                 property.SetColumnType("varchar(100)");
 
             modelBuilder.Ignore<ValidationResult>();
+            modelBuilder.Ignore<Notification>();
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogoContext).Assembly);
         }
 
