@@ -54,7 +54,7 @@ namespace NerdStore.Catalogo.Application.Services
             var produto = _mapper.Map<Produto>(produtoViewModel);
             
             if (produto.EhInvalido)
-                return new RespostaPadrao("Erro ao criar o produto", false, produto.ResultadoValidacao);
+                return new RespostaPadrao("Erro ao criar o produto", false, produto.Notifications);
 
             _produtoRepository.Adicionar(produto);
             var resultado = await _produtoRepository.UnitOfWork.Commit();
@@ -75,7 +75,7 @@ namespace NerdStore.Catalogo.Application.Services
             var produto = _mapper.Map<Produto>(produtoViewModel);            
 
             if (produto.EhInvalido)
-                return new RespostaPadrao("Erro ao atualizar o produto", false, produto.ResultadoValidacao);
+                return new RespostaPadrao("Erro ao atualizar o produto", false, produto.Notifications);
 
             _produtoRepository.Atualizar(produto);
 
@@ -91,7 +91,7 @@ namespace NerdStore.Catalogo.Application.Services
             var categoria = _mapper.Map<Categoria>(categoriaViewModel);
 
             if(categoria.EhInvalido)
-                return new RespostaPadrao("Erro ao adicionar a categoria", false,categoria.ResultadoValidacao);
+                return new RespostaPadrao("Erro ao adicionar a categoria", false,categoria.Notifications);
 
             _produtoRepository.Adicionar(categoria);
 

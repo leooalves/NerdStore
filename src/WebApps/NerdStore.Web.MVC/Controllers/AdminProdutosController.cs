@@ -85,9 +85,9 @@ namespace NerdStore.Web.MVC.Controllers
         [HttpPost]
         [Route("produtos-atualizar-estoque")]
         public async Task<IActionResult> AtualizarEstoque(Guid idProduto, int quantidade)
-        {
-            var resposta = new RespostaPadrao("", true);
-            if(quantidade > 0)
+        {            
+            RespostaPadrao resposta;
+            if (quantidade > 0)
             {
                 resposta = await _produtoAppService.ReporEstoqueProduto(idProduto, quantidade);
             }
@@ -96,7 +96,7 @@ namespace NerdStore.Web.MVC.Controllers
                 resposta = await _produtoAppService.DebitarEstoqueProduto(idProduto, quantidade);
             }
 
-            if(resposta.Sucesso)
+            if (resposta.Sucesso)
                 return View("Index", await _produtoAppService.ObterTodosProdutos());
 
             TempData["Erro"] = ObterMensagensErro(resposta);

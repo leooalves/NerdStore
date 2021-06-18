@@ -53,7 +53,7 @@ namespace NerdStore.Catalogo.Domain.Entidades
             }
             else
             {
-                ResultadoValidacao = categoria.ResultadoValidacao;
+                AddNotifications(categoria.Notifications);
             }                        
         }
 

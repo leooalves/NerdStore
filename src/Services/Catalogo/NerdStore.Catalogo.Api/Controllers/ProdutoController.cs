@@ -48,8 +48,8 @@ namespace NerdStore.Catalogo.Api.Controllers
         [Route("atualiza-estoque/{id:guid}")]
         public async Task<IActionResult> AtualizaEstoqueProduto(Guid id, int quantidade)
         {
-
-            var resposta = new RespostaPadrao("", true);
+            
+            RespostaPadrao resposta;
             if (quantidade > 0)
             {
                 resposta = await _produtoAppService.ReporEstoqueProduto(id, quantidade);
