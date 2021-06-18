@@ -76,7 +76,7 @@ export class NovoProdutoPageComponent implements OnInit {
       .subscribe(resposta => {
         if (resposta.sucesso) {
           this.toastr.success(resposta.mensagem);
-          this.route.navigate(['/'])
+          this.route.navigate(['/admin'])
         } else {
           this.toastr.error(resposta.mensagem);
         }

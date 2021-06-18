@@ -34,6 +34,11 @@ export class DataService {
         return this.http.post<RespostaPadrao>(`${this.url}/produto`, produto)
     }
 
+    atualizaEstoqueProduto(idProduto: string, quantidade: number) {
+        return this.http.post<RespostaPadrao>(`${this.url}/produto/atualiza-estoque/${idProduto}?quantidade=${quantidade}`, '')
+    }
+
+
     getCategorias() {
         return this.http.get<any[]>(`${this.url}/produto/categoria`)
     }

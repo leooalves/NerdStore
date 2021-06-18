@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Application.ViewModel;
+using NerdStore.Shared.Commands;
 
 namespace NerdStore.Catalogo.Api.Controllers
 {
@@ -44,6 +45,27 @@ namespace NerdStore.Catalogo.Api.Controllers
         }
 
         [HttpPost]
+        [Route("atualiza-estoque/{id:guid}")]
+        public async Task<IActionResult> AtualizaEstoqueProduto(Guid id, int quantidade)
+        {
+
+            var resposta = new RespostaPadrao("", true);
+            if (quantidade > 0)
+            {
+                resposta = await _produtoAppService.ReporEstoqueProduto(id, quantidade);
+            }
+            else
+            {
+                resposta = await _produtoAppService.DebitarEstoqueProduto(id, quantidade);
+            }
+
+            if (resposta.Sucesso)
+                return Ok(resposta);
+
+            return BadRequest(resposta);            
+        }
+
+            [HttpPost]
         [Route("")]
         public async Task<IActionResult> CriaProduto(ProdutoViewModel produto)
         {

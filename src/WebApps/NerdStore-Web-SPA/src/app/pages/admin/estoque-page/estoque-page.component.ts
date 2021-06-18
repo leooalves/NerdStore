@@ -41,20 +41,21 @@ export class EstoquePageComponent implements OnInit {
     })
 
     this.produto$ = this.data.getProdutoPorId(this.produtoId);
+
     this.produto$.subscribe(resposta => {
 
       this.produto = resposta;
-      //this.form.patchValue(this.produto)
+      this.form.controls['id'].setValue(this.produtoId);
     })
   }
 
-  Salvar() {
+  atualizaEstoque() {
 
-    this.data.atualizaProduto(this.form.value)
+    this.data.atualizaEstoqueProduto(this.produtoId, this.form.get('quantidadeEstoque')?.value)
       .subscribe(resposta => {
         if (resposta.sucesso) {
           this.toastr.success(resposta.mensagem);
-          this.route.navigate(['/'])
+          this.route.navigate(['/admin'])
         } else {
           this.toastr.error(resposta.mensagem);
         }
