@@ -12,7 +12,7 @@ namespace NerdStore.Shared.Entidades.DTO
     }
     public class Item
     {
-        public Guid Id { get; set; }
+        public Guid ProdutoId { get; set; }
         public int Quantidade { get; set; }
     }
 }

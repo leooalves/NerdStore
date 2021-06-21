@@ -8,14 +8,14 @@ namespace NerdStore.Vendas.Api.Application.Commands
     {
         public Guid ClienteId { get; private set; }
         public Guid ProdutoId { get; private set; }
-        public string Nome { get; private set; }
+        public string NomeProduto { get; private set; }
         public int Quantidade { get; private set; }
         public decimal ValorUnitario { get; private set; }
         public AdicionarItemPedidoCommand(Guid clienteId, Guid produtoId, string nome, int quantidade, decimal valorUnitario)
         {
             ClienteId = clienteId;
             ProdutoId = produtoId;
-            Nome = nome;
+            NomeProduto = nome;
             Quantidade = quantidade;
             ValorUnitario = valorUnitario;
         }
@@ -39,7 +39,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
                 .NotEqual(Guid.Empty)
                 .WithMessage("Id do produto inválido");
 
-            RuleFor(c => c.Nome)
+            RuleFor(c => c.NomeProduto)
                 .NotEmpty()
                 .WithMessage("O nome do produto não foi informado");
 
