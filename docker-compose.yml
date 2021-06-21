@@ -1,8 +1,6 @@
-version: '3.4'
+version: "3.9"
 
 services:
-
-  
 
   sqldata:
     image: mcr.microsoft.com/mssql/server:2019-latest 
@@ -13,14 +11,16 @@ services:
     ports: 
         - "1433:1433"
 
-  catalogo-api:
-    image: ${DOCKER_REGISTRY-}catalogo-api    
-    build:
-        context:  .
-        dockerfile: src/Services/Catalogo/NerdStore.Catalogo.Api/Dockerfile
-    expose:
-        - "80"
+  catalogo-api:    
+    build: 
+        dockerfile: "src/Services/Catalogo/NerdStore.Catalogo.Api/Dockerfile"
+        context: .
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development      
+      - ASPNETCORE_URLS=http://0.0.0.0:5000
     ports:
-        - "5101:80"   
+        - "5000:5000" 
+        - "5001:5001" 
+   
     depends_on:
         - sqldata  

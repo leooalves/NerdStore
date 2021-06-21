@@ -43,7 +43,7 @@ namespace NerdStore.Catalogo.Api
             services.AddAutoMapper(typeof(DomainToViewModelProfile), typeof(ViewModelToDomainProfile));
 
             services.AddDbContext<CatalogoContext>(options => {
-                options.UseInMemoryDatabase("Database1");          
+                options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"));          
             });
 
             services.RegistrarDependencias();
@@ -66,7 +66,7 @@ namespace NerdStore.Catalogo.Api
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthorization();            
 
             app.UseEndpoints(endpoints =>
             {
