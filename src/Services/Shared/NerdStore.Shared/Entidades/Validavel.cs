@@ -8,6 +8,11 @@ namespace NerdStore.Shared.Entidades
 {
     public abstract class Validavel
     {
+        public Validavel()
+        {
+			_notifications = new List<Notification>();
+        }
+
         private readonly List<Notification> _notifications;
         public IReadOnlyCollection<Notification> Notifications => _notifications;        
 
