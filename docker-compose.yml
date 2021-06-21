@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+
+  
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest 
+    environment: 
+        ACCEPT_EULA: "Y"
+        SA_PASSWORD: "Pa55w0rd2021"
+        MSSQL_PID: Express
+    ports: 
+        - "1433:1433"
+
+  catalogo-api:
+    image: ${DOCKER_REGISTRY-}catalogo-api    
+    build:
+        context:  .
+        dockerfile: src/Services/Catalogo/NerdStore.Catalogo.Api/Dockerfile
+    expose:
+        - "80"
+    ports:
+        - "5101:80"   
+    depends_on:
+        - sqldata  
