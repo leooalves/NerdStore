@@ -6,8 +6,8 @@ namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class AtualizarItemPedidoCommand : PedidosCommand
     {        
-        public Guid ProdutoId { get; private set; }
-        public int Quantidade { get; private set; }
+        public Guid ProdutoId { get; set; }
+        public int Quantidade { get; set; }
 
         public AtualizarItemPedidoCommand( Guid produtoId, int quantidade, Guid clienteId)
         {            

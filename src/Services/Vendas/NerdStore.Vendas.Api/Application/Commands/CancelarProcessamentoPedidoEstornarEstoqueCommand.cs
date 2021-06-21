@@ -5,7 +5,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class CancelarProcessamentoPedidoEstornarEstoqueCommand : PedidosCommand
     {
-        public Guid PedidoId { get; private set; }        
+        public Guid PedidoId { get; set; }        
 
         public CancelarProcessamentoPedidoEstornarEstoqueCommand(Guid pedidoId, Guid clienteId)
         {

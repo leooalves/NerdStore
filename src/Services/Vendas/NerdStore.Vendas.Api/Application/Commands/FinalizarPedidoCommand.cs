@@ -5,7 +5,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class FinalizarPedidoCommand : PedidosCommand
     {
-        public Guid PedidoId { get; private set; }        
+        public Guid PedidoId { get; set; }        
 
         public FinalizarPedidoCommand(Guid pedidoId, Guid clienteId)
         {

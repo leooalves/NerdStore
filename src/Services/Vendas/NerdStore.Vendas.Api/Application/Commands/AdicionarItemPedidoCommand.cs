@@ -6,10 +6,10 @@ namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class AdicionarItemPedidoCommand : PedidosCommand
     {        
-        public Guid ProdutoId { get; private set; }
-        public string NomeProduto { get; private set; }
-        public int Quantidade { get; private set; }
-        public decimal ValorUnitario { get; private set; }
+        public Guid ProdutoId { get; set; }
+        public string NomeProduto { get; set; }
+        public int Quantidade { get; set; }
+        public decimal ValorUnitario { get; set; }
         public AdicionarItemPedidoCommand(Guid produtoId, Guid clienteId, string nome, int quantidade, decimal valorUnitario)
         {            
             ProdutoId = produtoId;

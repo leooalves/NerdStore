@@ -6,7 +6,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class AplicarVoucherPedidoCommand : PedidosCommand
     {        
-        public string CodigoVoucher { get; private set; }
+        public string CodigoVoucher { get; set; }
 
         public AplicarVoucherPedidoCommand(string codigoVoucher, Guid clienteId)
         {            

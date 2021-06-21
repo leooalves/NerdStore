@@ -65,7 +65,7 @@ namespace NerdStore.Catalogo.Api.Controllers
             return BadRequest(resposta);            
         }
 
-            [HttpPost]
+        [HttpPost]
         [Route("")]
         public async Task<IActionResult> CriaProduto(ProdutoViewModel produto)
         {
