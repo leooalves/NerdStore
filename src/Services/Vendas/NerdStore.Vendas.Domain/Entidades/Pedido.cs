@@ -48,7 +48,7 @@ namespace NerdStore.Vendas.Domain.Entidades
             }
 
             Voucher = voucher;
-            VoucherUtilizado = true;
+            voucher.UtilizarVoucher();            
             CalcularValorPedido();
 
             return true;
@@ -87,6 +87,16 @@ namespace NerdStore.Vendas.Domain.Entidades
 
             ValorTotal = valor < 0 ? 0 : valor;
             Desconto = desconto;
+        }
+
+        public PedidoItem PedidoItemExistente(Guid produtoId)
+        {
+            return _pedidoItems.FirstOrDefault(item => item.ProdutoId == produtoId);
+        }
+
+        public bool PedidoItemExiste(Guid produtoId)
+        {
+            return _pedidoItems.Any(p => p.ProdutoId == produtoId);
         }
 
         public bool PedidoItemExiste(PedidoItem item)

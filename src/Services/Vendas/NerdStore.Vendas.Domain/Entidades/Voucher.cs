@@ -29,6 +29,12 @@ namespace NerdStore.Vendas.Domain.Entidades
         {
             Validar(this, new VoucherAplicavelValidation());            
         }
+
+        internal void UtilizarVoucher()
+        {
+            Utilizado = true;
+            Quantidade -= 1;
+        }
     }
 
     public class VoucherAplicavelValidation : AbstractValidator<Voucher>
