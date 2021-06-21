@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace NerdStore.Vendas.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CarrinhoController : PadraoController
     {
@@ -33,14 +33,49 @@ namespace NerdStore.Vendas.Api.Controllers
         }
 
         [HttpPost]
-        [Route("")]
+        [Route("item")]
         public async Task<ActionResult<RespostaPadrao>> AdicionarItem(AdicionarItemPedidoCommand command)
-        {
-            //command.
+        {            
+            command.AtribuiClienteId(this.ClienteId);
 
             return await _mediatrHandler.EnviarComando(command);
         }
 
+        [HttpDelete]
+        [Route("item")]
+        public async Task<ActionResult<RespostaPadrao>> RemoverItem(RemoverItemPedidoCommand command)
+        {
+            command.AtribuiClienteId(this.ClienteId);
+
+            return await _mediatrHandler.EnviarComando(command);
+        }
+
+        [HttpPut]
+        [Route("item")]
+        public async Task<ActionResult<RespostaPadrao>> Atualizar(AtualizarItemPedidoCommand command)
+        {
+            command.AtribuiClienteId(this.ClienteId);
+
+            return await _mediatrHandler.EnviarComando(command);
+        }
+
+        [HttpPost]
+        [Route("voucher")]
+        public async Task<ActionResult<RespostaPadrao>> AplicarVoucher(AplicarVoucherPedidoCommand command)
+        {
+            command.AtribuiClienteId(this.ClienteId);
+
+            return await _mediatrHandler.EnviarComando(command);
+        }
+
+        [HttpPost]
+        [Route("iniciar-pedido")]
+        public async Task<ActionResult<RespostaPadrao>> IniciarPedido(IniciarPedidoCommand command)
+        {
+            command.AtribuiClienteId(this.ClienteId);
+
+            return await _mediatrHandler.EnviarComando(command);
+        }
 
     }
 }
