@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using FluentValidation.Results;
 using NerdStore.Shared.Entidades;
+using NerdStore.Shared.Messaging;
 
 namespace NerdStore.Catalogo.Infra.DataContext
 {
@@ -29,6 +30,7 @@ namespace NerdStore.Catalogo.Infra.DataContext
             modelBuilder.Ignore<ValidationResult>();
             modelBuilder.Ignore<Notification>();
             modelBuilder.Ignore<Dimensoes>();
+            modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogoContext).Assembly);
         }

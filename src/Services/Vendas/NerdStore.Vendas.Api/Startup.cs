@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,9 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using NerdStore.Vendas.Domain.Repository;
+using NerdStore.Vendas.Api.Setup;
 using NerdStore.Vendas.Infra.DataContext;
-using NerdStore.Vendas.Infra.Repository;
 
 namespace NerdStore.Vendas.Api
 {
@@ -31,8 +31,10 @@ namespace NerdStore.Vendas.Api
             });
 
             services.AddDbContext<VendasContext>(opt => opt.UseInMemoryDatabase("Database"));
-            services.AddScoped<IPedidoRepository, PedidoRepository>();
 
+            services.AddMediatR(typeof(Startup));
+
+            services.RegistrarDependencias();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

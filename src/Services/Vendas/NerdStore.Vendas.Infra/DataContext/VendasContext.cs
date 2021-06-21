@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NerdStore.Shared.Entidades;
 using NerdStore.Shared.Infra;
 using NerdStore.Shared.Mediator;
+using NerdStore.Shared.Messaging;
 using NerdStore.Vendas.Domain.Entidades;
 using System;
 using System.Linq;
@@ -51,6 +52,7 @@ namespace NerdStore.Vendas.Infra.DataContext
                 property.SetColumnType("varchar(100)");
 
             modelBuilder.Ignore<Notification>();
+            modelBuilder.Ignore<Event>();
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(VendasContext).Assembly);
 
