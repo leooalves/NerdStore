@@ -1,12 +1,10 @@
 ﻿using FluentValidation;
-using NerdStore.Shared.Commands;
 using System;
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
-    public class RemoverItemPedidoCommand : Command
-    {
-        public Guid ClienteId { get; private set; }
+    public class RemoverItemPedidoCommand : PedidosCommand
+    {        
         public Guid ProdutoId { get; private set; }
 
         public RemoverItemPedidoCommand(Guid clienteId, Guid produtoId)

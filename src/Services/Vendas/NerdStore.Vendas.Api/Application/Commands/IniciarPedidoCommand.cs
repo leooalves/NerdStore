@@ -1,13 +1,11 @@
 ﻿using FluentValidation;
-using NerdStore.Shared.Commands;
 using System;
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
-    public class IniciarPedidoCommand : Command
+    public class IniciarPedidoCommand : PedidosCommand
     {
-        public Guid PedidoId { get; private set; }
-        public Guid ClienteId { get; private set; }
+        public Guid PedidoId { get; private set; }        
         public decimal Total { get; private set; }
         public string NomeCartao { get; private set; }
         public string NumeroCartao { get; private set; }

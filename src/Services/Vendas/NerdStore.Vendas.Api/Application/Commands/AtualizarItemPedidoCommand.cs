@@ -1,21 +1,19 @@
 ﻿using FluentValidation;
-using NerdStore.Shared.Commands;
 using System;
 
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
-    public class AtualizarItemPedidoCommand : Command
-    {
-        public Guid ClienteId { get; private set; }
+    public class AtualizarItemPedidoCommand : PedidosCommand
+    {        
         public Guid ProdutoId { get; private set; }
         public int Quantidade { get; private set; }
 
-        public AtualizarItemPedidoCommand(Guid clienteId, Guid produtoId, int quantidade)
-        {
-            ClienteId = clienteId;
+        public AtualizarItemPedidoCommand( Guid produtoId, int quantidade, Guid clienteId)
+        {            
             ProdutoId = produtoId;
             Quantidade = quantidade;
+            ClienteId = clienteId;
         }
 
         public override void Validar()

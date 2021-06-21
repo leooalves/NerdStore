@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Shared\NerdStore.Shared\NerdStore.Shared.csproj" />
     <ProjectReference Include="..\NerdStore.Vendas.Domain\NerdStore.Vendas.Domain.csproj" />
     <ProjectReference Include="..\NerdStore.Vendas.Infra\NerdStore.Vendas.Infra.csproj" />

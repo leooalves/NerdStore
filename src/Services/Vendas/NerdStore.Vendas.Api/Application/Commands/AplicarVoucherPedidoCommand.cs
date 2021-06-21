@@ -4,15 +4,14 @@ using System;
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
-    public class AplicarVoucherPedidoCommand : Command
-    {
-        public Guid ClienteId { get; private set; }
+    public class AplicarVoucherPedidoCommand : PedidosCommand
+    {        
         public string CodigoVoucher { get; private set; }
 
-        public AplicarVoucherPedidoCommand(Guid clienteId, string codigoVoucher)
-        {
-            ClienteId = clienteId;
+        public AplicarVoucherPedidoCommand(string codigoVoucher, Guid clienteId)
+        {            
             CodigoVoucher = codigoVoucher;
+            ClienteId = clienteId;
         }
 
         public override void Validar()
