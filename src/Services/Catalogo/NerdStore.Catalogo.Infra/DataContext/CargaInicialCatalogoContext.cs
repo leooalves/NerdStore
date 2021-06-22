@@ -13,14 +13,20 @@ namespace NerdStore.Catalogo.Infra.DataContext
         public static void Carregar(CatalogoContext catalogoContext)
         {
             catalogoContext.Database.Migrate();
-            //if (!catalogoContext.Produtos.Any())
-            //{
-            //    var categorias = CargaInicialCategoria();
-            //    catalogoContext.Categorias.AddRange(categorias);
-            //    var produtos = CargaInicialProduto(categorias);
-            //    catalogoContext.Produtos.AddRange(produtos);
-            //    catalogoContext.SaveChangesAsync();
-            //}
+            if (!catalogoContext.Categorias.Any())
+            {
+                var categorias = CargaInicialCategoria();
+                catalogoContext.Categorias.AddRange(categorias);
+                catalogoContext.SaveChanges();                          
+            }
+            if (!catalogoContext.Produtos.Any())
+            {
+                var produtos = CargaInicialProduto(catalogoContext);
+                catalogoContext.Produtos.AddRange(produtos);
+                catalogoContext.SaveChanges();
+            }
+                
+            
         }
 
         private static IEnumerable<Categoria> CargaInicialCategoria()
@@ -31,11 +37,11 @@ namespace NerdStore.Catalogo.Infra.DataContext
             };
         }
 
-        private static IEnumerable<Produto> CargaInicialProduto(IEnumerable<Categoria> categorias)
+        private static IEnumerable<Produto> CargaInicialProduto(CatalogoContext catalogoContext)
         {
+            IEnumerable<Categoria> categorias = catalogoContext.Categorias.ToList();
             return new List<Produto>()
             {
-
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,
                             categorias.First(categoria => categoria.Nome=="Camisetas").Id, "camiseta1.jpg", new Dimensoes(1M, 1M, 1M)),
                 new Produto("Camiseta Software Developer", "Camiseta Software Developer Branca", true, 60M, DateTime.Now,

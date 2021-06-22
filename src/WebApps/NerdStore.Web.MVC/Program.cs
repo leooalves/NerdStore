@@ -17,7 +17,7 @@ namespace NerdStore.Web.MVC
 
                 var context = services.GetRequiredService<CatalogoContext>();
 
-                CargaInicialCatalogoContext.Carregar(context);
+                //CargaInicialCatalogoContext.Carregar(context);
             }
 
             host.Run();

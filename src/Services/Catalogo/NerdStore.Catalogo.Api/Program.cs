@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NerdStore.Catalogo.Infra.DataContext;
+using NerdStore.Catalogo.Api.Setup;
 
 namespace NerdStore.Catalogo.Api
 {
