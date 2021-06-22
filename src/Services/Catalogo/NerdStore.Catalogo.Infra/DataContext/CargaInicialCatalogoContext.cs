@@ -13,14 +13,14 @@ namespace NerdStore.Catalogo.Infra.DataContext
         public static void Carregar(CatalogoContext catalogoContext)
         {
             catalogoContext.Database.Migrate();
-            if (!catalogoContext.Categorias.Any())
-            {
-                var categorias = CargaInicialCategoria();
-                catalogoContext.Categorias.AddRange(categorias);
-                var produtos = CargaInicialProduto(categorias);
-                catalogoContext.Produtos.AddRange(produtos);
-                catalogoContext.SaveChangesAsync();
-            }
+            //if (!catalogoContext.Produtos.Any())
+            //{
+            //    var categorias = CargaInicialCategoria();
+            //    catalogoContext.Categorias.AddRange(categorias);
+            //    var produtos = CargaInicialProduto(categorias);
+            //    catalogoContext.Produtos.AddRange(produtos);
+            //    catalogoContext.SaveChangesAsync();
+            //}
         }
 
         private static IEnumerable<Categoria> CargaInicialCategoria()
