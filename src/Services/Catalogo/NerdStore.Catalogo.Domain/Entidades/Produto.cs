@@ -10,7 +10,7 @@ namespace NerdStore.Catalogo.Domain.Entidades
     public class Produto : Entity, IAggregateRoot
     {
         protected Produto() { }
-        public Produto(string nome, string descricao, bool ativo, decimal valor, DateTime dataCadastro , Guid categoriaId, string imagem, Dimensoes dimensoes)
+        public Produto(string nome, string descricao, bool ativo, decimal valor, DateTime dataCadastro, Guid categoriaId, string imagem, Dimensoes dimensoes)
         {
             CategoriaId = categoriaId;
             Nome = nome;
@@ -22,7 +22,7 @@ namespace NerdStore.Catalogo.Domain.Entidades
             Dimensoes = dimensoes;
             QuantidadeMinimaReporEstoque = 3;
 
-            this.ReporEstoque(new Random().Next(0,10));
+            ReporEstoque(new Random().Next(0, 10));
 
             Validar();
         }
@@ -35,10 +35,10 @@ namespace NerdStore.Catalogo.Domain.Entidades
         public DateTime DataCadastro { get; private set; }
         public string Imagem { get; private set; }
         public int QuantidadeEstoque { get; private set; }
-        public int QuantidadeMinimaReporEstoque{ get; private set; }
+        public int QuantidadeMinimaReporEstoque { get; private set; }
 
         public Dimensoes Dimensoes { get; private set; }
-        public Categoria Categoria { get; private set; }   
+        public Categoria Categoria { get; private set; }
 
         public void Ativar() => Ativo = true;
 
@@ -54,18 +54,18 @@ namespace NerdStore.Catalogo.Domain.Entidades
             else
             {
                 AddNotifications(categoria.Notifications);
-            }                        
+            }
         }
 
         public void AlterarDescricao(string descricao)
-        {            
+        {
             Descricao = descricao;
             Validar();
         }
 
         public void DebitarEstoque(int quantidade)
         {
-            if (quantidade < 0) quantidade *= -1;            
+            if (quantidade < 0) quantidade *= -1;
             QuantidadeEstoque -= quantidade;
             Validar(this, new ProdutoDebitarEstoqueValidator());
         }
@@ -85,6 +85,6 @@ namespace NerdStore.Catalogo.Domain.Entidades
             Validar(this, new ProdutoValidator());
         }
 
-       
+
     }
 }

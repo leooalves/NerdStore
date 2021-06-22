@@ -1,10 +1,9 @@
 ﻿
+using NerdStore.Pagamentos.Data;
+using NerdStore.Shared.Entidades;
+using NerdStore.Shared.Mediator;
 using System.Linq;
 using System.Threading.Tasks;
-
-using NerdStore.Pagamentos.Data;
-using NerdStore.Shared.Mediator;
-using NerdStore.Shared.Entidades;
 
 namespace NerdStore.Core.Communication.Mediator
 {

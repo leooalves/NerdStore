@@ -43,12 +43,12 @@ namespace NerdStore.Vendas.Domain.Entidades
 
             if (voucher.EhInvalido)
             {
-                this.AddNotifications(voucher.Notifications);
+                AddNotifications(voucher.Notifications);
                 return false;
             }
 
             Voucher = voucher;
-            voucher.UtilizarVoucher();            
+            voucher.UtilizarVoucher();
             CalcularValorPedido();
 
             return true;
@@ -107,11 +107,11 @@ namespace NerdStore.Vendas.Domain.Entidades
         public void AdicionarItem(PedidoItem item)
         {
             if (item.EhInvalido)
-            {                
-                this.AddNotifications(item.Notifications);
+            {
+                AddNotifications(item.Notifications);
                 return;
             }
-            
+
             item.AssociarPedido(Id);
 
             if (PedidoItemExiste(item))
@@ -133,17 +133,17 @@ namespace NerdStore.Vendas.Domain.Entidades
         {
             if (item.EhInvalido)
             {
-                this.AddNotifications(item.Notifications);
+                AddNotifications(item.Notifications);
                 return;
             }
-            
+
             var itemExistente = PedidoItems.FirstOrDefault(p => p.ProdutoId == item.ProdutoId);
             if (itemExistente == null)
             {
-                this.AddNotification("Item", "O item não pertence ao pedido");
+                AddNotification("Item", "O item não pertence ao pedido");
                 return;
             }
-                
+
             _pedidoItems.Remove(itemExistente);
 
             CalcularValorPedido();
@@ -156,13 +156,13 @@ namespace NerdStore.Vendas.Domain.Entidades
                 AddNotifications(item.Notifications);
                 return;
             }
-                
+
             item.AssociarPedido(Id);
 
             var itemExistente = PedidoItems.FirstOrDefault(p => p.ProdutoId == item.ProdutoId);
             if (itemExistente == null)
             {
-                this.AddNotification("Item", "O item não pertence ao pedido");
+                AddNotification("Item", "O item não pertence ao pedido");
                 return;
             }
 

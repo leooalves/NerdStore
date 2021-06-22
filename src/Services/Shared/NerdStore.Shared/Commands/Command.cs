@@ -1,7 +1,6 @@
 ﻿
 
 using MediatR;
-using NerdStore.Shared.Commands;
 using NerdStore.Shared.Entidades;
 using System;
 

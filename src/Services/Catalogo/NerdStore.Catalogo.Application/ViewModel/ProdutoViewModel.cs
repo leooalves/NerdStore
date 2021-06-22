@@ -25,12 +25,12 @@ namespace NerdStore.Catalogo.Application.ViewModel
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public decimal Valor { get; set; }
-        
+
         public DateTime DataCadastro { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string Imagem { get; set; }
-        
+
         public int QuantidadeEstoque { get; set; }
 
         [Range(1, int.MaxValue, ErrorMessage = "O campo {0} precisa ter o valor mínimo de {1}")]

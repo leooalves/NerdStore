@@ -3,7 +3,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NerdStore.Catalogo.Domain.Entidades;
-using NerdStore.Catalogo.Infra.DataContext;
 
 namespace NerdStore.Catalogo.Infra.DataContext.Mappings
 {

@@ -1,8 +1,8 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using NerdStore.Shared.Entidades.DTO;
 using NerdStore.Shared.Messaging.IntegrationEvents;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NerdStore.Pagamentos.Business.Events
 {

@@ -9,7 +9,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_categoria_com_nome_vazio_deve_ser_invalida()
         {
-            var categoria = new Categoria(string.Empty,100);
+            var categoria = new Categoria(string.Empty, 100);
 
             Assert.IsTrue(categoria.EhInvalido);
         }

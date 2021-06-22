@@ -2,7 +2,7 @@
 
 namespace NerdStore.Shared.Infra
 {
-    public interface IRepository<T> where T: IAggregateRoot
+    public interface IRepository<T> where T : IAggregateRoot
     {
         IUnitOfWork UnitOfWork { get; }
     }

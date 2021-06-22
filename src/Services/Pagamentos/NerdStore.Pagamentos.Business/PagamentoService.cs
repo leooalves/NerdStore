@@ -1,7 +1,7 @@
-﻿using System.Threading.Tasks;
-using NerdStore.Shared.Entidades.DTO;
+﻿using NerdStore.Shared.Entidades.DTO;
 using NerdStore.Shared.Mediator;
 using NerdStore.Shared.Messaging.IntegrationEvents;
+using System.Threading.Tasks;
 
 namespace NerdStore.Pagamentos.Business
 {
@@ -12,7 +12,7 @@ namespace NerdStore.Pagamentos.Business
         private readonly IMediatrHandler _mediatorHandler;
 
         public PagamentoService(IPagamentoCartaoCreditoFacade pagamentoCartaoCreditoFacade,
-                                IPagamentoRepository pagamentoRepository, 
+                                IPagamentoRepository pagamentoRepository,
                                 IMediatrHandler mediatorHandler)
         {
             _pagamentoCartaoCreditoFacade = pagamentoCartaoCreditoFacade;

@@ -47,7 +47,7 @@ namespace NerdStore.Vendas.Domain.Entidades
         internal void AtualizarUnidades(int unidades)
         {
             Quantidade = unidades;
-        }      
+        }
     }
 
     public class PedidoItemValidator : AbstractValidator<PedidoItem>

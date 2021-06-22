@@ -1,9 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using NerdStore.Shared.Mediator;
 using NerdStore.Shared.Messaging.IntegrationEvents;
 using NerdStore.Vendas.Api.Application.Commands;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace NerdStore.Vendas.Api.Application.Events
 {

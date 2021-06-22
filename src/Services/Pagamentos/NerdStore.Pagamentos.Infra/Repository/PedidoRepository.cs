@@ -13,7 +13,7 @@ namespace NerdStore.Pagamentos.Data.Repository
             _context = context;
         }
 
-        public IUnitOfWork UnitOfWork => _context;        
+        public IUnitOfWork UnitOfWork => _context;
 
         public void Adicionar(Pagamento pagamento)
         {

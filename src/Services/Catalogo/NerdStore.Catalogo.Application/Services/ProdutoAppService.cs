@@ -52,7 +52,7 @@ namespace NerdStore.Catalogo.Application.Services
         public async Task<RespostaPadrao> AdicionarProduto(ProdutoViewModel produtoViewModel)
         {
             var produto = _mapper.Map<Produto>(produtoViewModel);
-            
+
             if (produto.EhInvalido)
                 return new RespostaPadrao("Erro ao criar o produto", false, produto.Notifications);
 
@@ -65,14 +65,14 @@ namespace NerdStore.Catalogo.Application.Services
         }
 
         public async Task<RespostaPadrao> AtualizarProduto(ProdutoViewModel produtoViewModel)
-        {            
+        {
             var produtoAnterior = await _produtoRepository.ObterProdutoPorId(produtoViewModel.Id);
-            if(produtoAnterior == null)
+            if (produtoAnterior == null)
                 return new RespostaPadrao("Produto não encontrado", true);
 
             produtoViewModel.QuantidadeEstoque = produtoAnterior.QuantidadeEstoque;
 
-            var produto = _mapper.Map<Produto>(produtoViewModel);            
+            var produto = _mapper.Map<Produto>(produtoViewModel);
 
             if (produto.EhInvalido)
                 return new RespostaPadrao("Erro ao atualizar o produto", false, produto.Notifications);
@@ -90,8 +90,8 @@ namespace NerdStore.Catalogo.Application.Services
         {
             var categoria = _mapper.Map<Categoria>(categoriaViewModel);
 
-            if(categoria.EhInvalido)
-                return new RespostaPadrao("Erro ao adicionar a categoria", false,categoria.Notifications);
+            if (categoria.EhInvalido)
+                return new RespostaPadrao("Erro ao adicionar a categoria", false, categoria.Notifications);
 
             _produtoRepository.Adicionar(categoria);
 
@@ -111,7 +111,7 @@ namespace NerdStore.Catalogo.Application.Services
                 return new RespostaPadrao("Produto debitado do estoque com sucesso", true);
 
             return new RespostaPadrao("Não há produtos suficientes no estoque", false);
-        }            
+        }
 
         public async Task<RespostaPadrao> ReporEstoqueProduto(Guid produtoId, int quantidade)
         {

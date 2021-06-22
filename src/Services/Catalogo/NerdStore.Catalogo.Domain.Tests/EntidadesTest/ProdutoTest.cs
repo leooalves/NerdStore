@@ -1,7 +1,7 @@
+using FluentValidation.TestHelper;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NerdStore.Catalogo.Domain.Entidades;
 using NerdStore.Catalogo.Domain.Entidades.Validacoes;
-using FluentValidation.TestHelper;
 using System;
 
 namespace NerdStore.Catalogo.Domain.Tests.Entidades
@@ -19,7 +19,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_produto_sem_nome_deve_dar_erro()
         {
-            var produto = new Produto(string.Empty, "Descricao", true, 10,DateTime.Now ,Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
+            var produto = new Produto(string.Empty, "Descricao", true, 10, DateTime.Now, Guid.NewGuid(), "imagem", new Dimensoes(1, 1, 1));
             var resultado = _validator.TestValidate(produto);
             resultado.ShouldHaveValidationErrorFor("Nome");
         }

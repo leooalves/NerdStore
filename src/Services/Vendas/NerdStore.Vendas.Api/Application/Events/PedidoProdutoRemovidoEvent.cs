@@ -1,5 +1,5 @@
-﻿using System;
-using NerdStore.Shared.Messaging;
+﻿using NerdStore.Shared.Messaging;
+using System;
 
 namespace NerdStore.Vendas.Api.Application.Events
 {

@@ -1,5 +1,5 @@
-﻿using System;
-using NerdStore.Shared.Entidades.DTO;
+﻿using NerdStore.Shared.Entidades.DTO;
+using System;
 
 namespace NerdStore.Shared.Messaging.IntegrationEvents
 {

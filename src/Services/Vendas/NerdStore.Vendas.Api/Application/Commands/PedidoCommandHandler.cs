@@ -7,7 +7,6 @@ using NerdStore.Shared.Messaging.IntegrationEvents;
 using NerdStore.Vendas.Api.Application.Events;
 using NerdStore.Vendas.Domain.Entidades;
 using NerdStore.Vendas.Domain.Repository;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -15,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
-    public class PedidoCommandHandler : 
+    public class PedidoCommandHandler :
         IRequestHandler<IniciarPedidoCommand, RespostaPadrao>,
         IRequestHandler<AdicionarItemPedidoCommand, RespostaPadrao>,
         IRequestHandler<AtualizarItemPedidoCommand, RespostaPadrao>,
@@ -69,8 +68,8 @@ namespace NerdStore.Vendas.Api.Application.Commands
                 _pedidoRepository.AtualizarPedido(pedido);
             }
 
-            pedido.AdicionarEvento(new PedidoItemAdicionadoEvent(pedido.ClienteId,pedido.Id,request.ProdutoId,
-                                    request.NomeProduto,request.ValorUnitario,request.Quantidade));
+            pedido.AdicionarEvento(new PedidoItemAdicionadoEvent(pedido.ClienteId, pedido.Id, request.ProdutoId,
+                                    request.NomeProduto, request.ValorUnitario, request.Quantidade));
 
             var commit = await _pedidoRepository.UnitOfWork.Commit();
             if (commit)
@@ -86,7 +85,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
                 return RequisicaoComErro(request.Notifications);
 
             var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(request.ClienteId);
-            if(pedido == null)
+            if (pedido == null)
                 return RequisicaoComErro("pedido não existe");
 
             var pedidoItem = await _pedidoRepository.ObterItemPorPedido(pedido.Id, request.ProdutoId);
@@ -173,7 +172,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
                 return RequisicaoComErro(request.Notifications);
 
             var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(request.ClienteId);
-            pedido.IniciarPedido();            
+            pedido.IniciarPedido();
 
             //setup de objetos para o evento
             var itens = new List<Item>();
@@ -199,7 +198,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
 
             if (pedido == null)
                 return RequisicaoComErro("Pedido não encontrado");
-                            
+
             pedido.FinalizarPedido();
 
             pedido.AdicionarEvento(new PedidoFinalizadoEvent(request.PedidoId));
@@ -222,7 +221,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
             var itens = new List<Item>();
             foreach (var itemPedido in pedido.PedidoItems)
             {
-                itens.Add(new Item { ProdutoId = itemPedido.ProdutoId , Quantidade = itemPedido.Quantidade});
+                itens.Add(new Item { ProdutoId = itemPedido.ProdutoId, Quantidade = itemPedido.Quantidade });
             }
             var listaProdutos = new ListaProdutosPedido { Itens = itens, PedidoId = pedido.Id };
 
@@ -270,6 +269,6 @@ namespace NerdStore.Vendas.Api.Application.Commands
             return new RespostaPadrao("Erro ao salvar a requisição", false);
         }
 
-   
+
     }
 }

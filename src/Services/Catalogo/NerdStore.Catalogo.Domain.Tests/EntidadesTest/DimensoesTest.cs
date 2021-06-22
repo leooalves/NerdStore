@@ -9,7 +9,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_dimensao_com_altura_menor_ou_igual_zero_deve_ser_invalida()
         {
-            var dimensoes = new Dimensoes(0,1,1);
+            var dimensoes = new Dimensoes(0, 1, 1);
 
             Assert.IsTrue(dimensoes.EhInvalido);
         }
@@ -17,7 +17,7 @@ namespace NerdStore.Catalogo.Domain.Tests.Entidades
         [TestMethod]
         public void Dado_dimensao_com_largura_menor_ou_igual_zero_deve_ser_invalida()
         {
-            var dimensoes = new Dimensoes(1,0, 1);
+            var dimensoes = new Dimensoes(1, 0, 1);
 
             Assert.IsTrue(dimensoes.EhInvalido); ;
         }

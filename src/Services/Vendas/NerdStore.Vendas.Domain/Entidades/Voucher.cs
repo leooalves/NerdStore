@@ -1,11 +1,9 @@
 ﻿
 
 using FluentValidation;
-using FluentValidation.Results;
 using NerdStore.Shared.Entidades;
 using NerdStore.Vendas.Domain.Enums;
 using System;
-using System.Collections.Generic;
 
 namespace NerdStore.Vendas.Domain.Entidades
 {
@@ -27,7 +25,7 @@ namespace NerdStore.Vendas.Domain.Entidades
 
         internal void ValidarSeAplicavel()
         {
-            Validar(this, new VoucherAplicavelValidation());            
+            Validar(this, new VoucherAplicavelValidation());
         }
 
         internal void UtilizarVoucher()

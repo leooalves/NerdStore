@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Application.ViewModel;
 using NerdStore.Shared.Commands;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace NerdStore.Catalogo.Api.Controllers
 {
@@ -48,7 +48,7 @@ namespace NerdStore.Catalogo.Api.Controllers
         [Route("atualiza-estoque/{id:guid}")]
         public async Task<IActionResult> AtualizaEstoqueProduto(Guid id, int quantidade)
         {
-            
+
             RespostaPadrao resposta;
             if (quantidade > 0)
             {
@@ -62,7 +62,7 @@ namespace NerdStore.Catalogo.Api.Controllers
             if (resposta.Sucesso)
                 return Ok(resposta);
 
-            return BadRequest(resposta);            
+            return BadRequest(resposta);
         }
 
         [HttpPost]
@@ -78,7 +78,7 @@ namespace NerdStore.Catalogo.Api.Controllers
         public async Task<IActionResult> TodasCategorias()
         {
             return Ok(await _produtoAppService.ObterTodasCategorias());
-        }        
+        }
 
         private async Task<ProdutoViewModel> PopularCategorias(ProdutoViewModel produto)
         {
@@ -97,7 +97,7 @@ namespace NerdStore.Catalogo.Api.Controllers
             {
                 produto.Categorias = categorias;
             }
-            
+
             return produtos;
         }
 

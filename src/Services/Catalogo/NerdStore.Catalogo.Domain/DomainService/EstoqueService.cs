@@ -24,13 +24,13 @@ namespace NerdStore.Catalogo.Domain.Service
         {
             var produto = await _produtoRepository.ObterProdutoPorId(produtoId);
 
-            if (produto == null) return false;            
+            if (produto == null) return false;
 
             produto.DebitarEstoque(quantidade);
 
             if (produto.EhInvalido)
                 return false;
-            
+
             if (produto.QuantidadeEstoque <= produto.QuantidadeMinimaReporEstoque)
             {
                 await _mediatr.PublicarEvento(new ProdutoAbaixoEstoqueEvent(produto.Id, produto.QuantidadeEstoque, produto.QuantidadeMinimaReporEstoque));
@@ -49,6 +49,6 @@ namespace NerdStore.Catalogo.Domain.Service
 
             _produtoRepository.Atualizar(produto);
             return await _produtoRepository.UnitOfWork.Commit();
-        }      
+        }
     }
 }

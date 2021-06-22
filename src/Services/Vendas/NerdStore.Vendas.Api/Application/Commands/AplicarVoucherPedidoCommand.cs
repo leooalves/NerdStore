@@ -1,15 +1,14 @@
 ﻿using FluentValidation;
-using NerdStore.Shared.Commands;
 using System;
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class AplicarVoucherPedidoCommand : PedidosCommand
-    {        
+    {
         public string CodigoVoucher { get; set; }
 
         public AplicarVoucherPedidoCommand(string codigoVoucher, Guid clienteId)
-        {            
+        {
             CodigoVoucher = codigoVoucher;
             ClienteId = clienteId;
         }

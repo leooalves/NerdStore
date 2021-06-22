@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace NerdStore.Catalogo.Domain.Entidades
 {
-    public class Categoria : Entity 
+    public class Categoria : Entity
     {
         protected Categoria() { }
 
@@ -25,5 +25,5 @@ namespace NerdStore.Catalogo.Domain.Entidades
 
     }
 
- 
+
 }

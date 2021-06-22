@@ -1,5 +1,3 @@
-using System;
-
 namespace NerdStore.Web.MVC.Models
 {
     public class ErrorViewModel

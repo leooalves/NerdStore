@@ -1,8 +1,8 @@
 ﻿
 
+using AutoMapper;
 using NerdStore.Catalogo.Application.ViewModel;
 using NerdStore.Catalogo.Domain.Entidades;
-using AutoMapper;
 
 namespace NerdStore.Catalogo.Application.AutoMapper
 {

@@ -1,15 +1,15 @@
 ﻿
 
+using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using NerdStore.Catalogo.Domain.Entidades;
+using NerdStore.Shared.Entidades;
 using NerdStore.Shared.Infra;
+using NerdStore.Shared.Messaging;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentValidation;
-using FluentValidation.Results;
-using NerdStore.Shared.Entidades;
-using NerdStore.Shared.Messaging;
 
 namespace NerdStore.Catalogo.Infra.DataContext
 {

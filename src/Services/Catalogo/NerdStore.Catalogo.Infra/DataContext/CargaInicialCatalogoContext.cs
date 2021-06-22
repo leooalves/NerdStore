@@ -3,7 +3,6 @@
 using Microsoft.EntityFrameworkCore;
 using NerdStore.Catalogo.Domain.Entidades;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -33,7 +32,7 @@ namespace NerdStore.Catalogo.Infra.DataContext
         }
 
         private static IEnumerable<Produto> CargaInicialProduto(IEnumerable<Categoria> categorias)
-        {            
+        {
             return new List<Produto>()
             {
 

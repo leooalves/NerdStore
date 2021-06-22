@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace NerdStore.Catalogo.Domain.Entidades.Validacoes
 {
-    public class ProdutoDebitarEstoqueValidator: AbstractValidator<Produto>
+    public class ProdutoDebitarEstoqueValidator : AbstractValidator<Produto>
     {
         public ProdutoDebitarEstoqueValidator()
         {

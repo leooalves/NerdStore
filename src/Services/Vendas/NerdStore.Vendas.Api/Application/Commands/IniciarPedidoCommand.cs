@@ -5,7 +5,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class IniciarPedidoCommand : PedidosCommand
     {
-        public Guid PedidoId { get; set; }        
+        public Guid PedidoId { get; set; }
         public decimal Total { get; set; }
         public string NomeCartao { get; set; }
         public string NumeroCartao { get; set; }

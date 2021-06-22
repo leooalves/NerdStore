@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using NerdStore.Shared.Mediator;
+﻿using Microsoft.AspNetCore.Mvc;
 using NerdStore.Vendas.Api.Application.Queries;
 using NerdStore.Vendas.Api.Application.Queries.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NerdStore.Vendas.Api.Controllers

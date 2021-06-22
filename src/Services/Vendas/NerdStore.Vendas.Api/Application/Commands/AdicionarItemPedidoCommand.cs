@@ -1,17 +1,16 @@
 ﻿using FluentValidation;
-using NerdStore.Shared.Commands;
 using System;
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class AdicionarItemPedidoCommand : PedidosCommand
-    {        
+    {
         public Guid ProdutoId { get; set; }
         public string NomeProduto { get; set; }
         public int Quantidade { get; set; }
         public decimal ValorUnitario { get; set; }
         public AdicionarItemPedidoCommand(Guid produtoId, Guid clienteId, string nome, int quantidade, decimal valorUnitario)
-        {            
+        {
             ProdutoId = produtoId;
             NomeProduto = nome;
             Quantidade = quantidade;

@@ -3,8 +3,6 @@ using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Application.ViewModel;
 using NerdStore.Shared.Commands;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace NerdStore.Web.MVC.Controllers
@@ -17,7 +15,7 @@ namespace NerdStore.Web.MVC.Controllers
         {
             _produtoAppService = produtoAppService;
         }
-        
+
         [HttpGet]
         [Route("index")]
         public async Task<IActionResult> Index()
@@ -33,21 +31,21 @@ namespace NerdStore.Web.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("novo-produto")]        
+        [Route("novo-produto")]
         public async Task<IActionResult> NovoProduto(ProdutoViewModel produtoViewModel)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return View(await PopularCategorias(produtoViewModel));
 
             var resposta = await _produtoAppService.AdicionarProduto(produtoViewModel);
 
-            if(resposta.Sucesso)
+            if (resposta.Sucesso)
                 return RedirectToAction("Index");
 
 
             TempData["Erro"] = ObterMensagensErro(resposta);
             return View(await PopularCategorias(new ProdutoViewModel()));
-            
+
         }
 
         [HttpGet]
@@ -63,11 +61,11 @@ namespace NerdStore.Web.MVC.Controllers
         public async Task<IActionResult> EditarProduto(ProdutoViewModel produtoViewModel)
         {
             ModelState.Remove("QuantidadeEstoque");
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
                 return View(await PopularCategorias(produtoViewModel));
 
             var resposta = await _produtoAppService.AtualizarProduto(produtoViewModel);
-            if(resposta.Sucesso)
+            if (resposta.Sucesso)
                 return RedirectToAction("Index");
 
             TempData["Erro"] = ObterMensagensErro(resposta);
@@ -85,7 +83,7 @@ namespace NerdStore.Web.MVC.Controllers
         [HttpPost]
         [Route("produtos-atualizar-estoque")]
         public async Task<IActionResult> AtualizarEstoque(Guid idProduto, int quantidade)
-        {            
+        {
             RespostaPadrao resposta;
             if (quantidade > 0)
             {

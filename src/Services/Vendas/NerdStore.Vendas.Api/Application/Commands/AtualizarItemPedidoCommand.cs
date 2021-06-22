@@ -5,12 +5,12 @@ using System;
 namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class AtualizarItemPedidoCommand : PedidosCommand
-    {        
+    {
         public Guid ProdutoId { get; set; }
         public int Quantidade { get; set; }
 
-        public AtualizarItemPedidoCommand( Guid produtoId, int quantidade, Guid clienteId)
-        {            
+        public AtualizarItemPedidoCommand(Guid produtoId, int quantidade, Guid clienteId)
+        {
             ProdutoId = produtoId;
             Quantidade = quantidade;
             ClienteId = clienteId;

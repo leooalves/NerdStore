@@ -4,7 +4,7 @@ using System;
 namespace NerdStore.Vendas.Api.Application.Commands
 {
     public class RemoverItemPedidoCommand : PedidosCommand
-    {        
+    {
         public Guid ProdutoId { get; set; }
 
         public RemoverItemPedidoCommand(Guid clienteId, Guid produtoId)

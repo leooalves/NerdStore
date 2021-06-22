@@ -24,3 +24,17 @@ services:
    
     depends_on:
         - sqldata  
+
+  vendas-api:    
+    build: 
+        dockerfile: "src/Services/Vendas/NerdStore.Vendas.Api/Dockerfile"
+        context: .
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development      
+      - ASPNETCORE_URLS=http://0.0.0.0:5002
+    ports:
+        - "5002:5002" 
+        - "5003:5003" 
+   
+    depends_on:
+        - sqldata  

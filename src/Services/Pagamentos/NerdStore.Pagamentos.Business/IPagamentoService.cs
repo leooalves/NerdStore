@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using NerdStore.Shared.Entidades.DTO;
+﻿using NerdStore.Shared.Entidades.DTO;
+using System.Threading.Tasks;
 
 namespace NerdStore.Pagamentos.Business
 {
