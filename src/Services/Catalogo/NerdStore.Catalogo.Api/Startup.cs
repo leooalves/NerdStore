@@ -42,6 +42,7 @@ namespace NerdStore.Catalogo.Api
 
             services.AddAutoMapper(typeof(DomainToViewModelProfile), typeof(ViewModelToDomainProfile));
 
+            //services.AddDbContext<VendasContext>(opt => opt.UseInMemoryDatabase("Database"));      
             services.AddDbContext<CatalogoContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"));

@@ -4,17 +4,17 @@ using System;
 
 namespace NerdStore.Vendas.Api.Application.Commands
 {
-    public class AdicionarItemPedidoCommand : Command
+    public class AdicionarItemPedidoCommand : PedidosCommand
     {
         public Guid ProdutoId { get; set; }
         public string NomeProduto { get; set; }
         public int Quantidade { get; set; }
-        public decimal ValorUnitario { get; set; }
-        public Guid ClienteId { get; set; }
-        public AdicionarItemPedidoCommand(Guid produtoId, Guid clienteId, string nome, int quantidade, decimal valorUnitario)
+        public decimal ValorUnitario { get; set; }        
+        
+        public AdicionarItemPedidoCommand(Guid produtoId, Guid clienteId, string nomeProduto, int quantidade, decimal valorUnitario)
         {
             ProdutoId = produtoId;
-            NomeProduto = nome;
+            NomeProduto = nomeProduto;
             Quantidade = quantidade;
             ValorUnitario = valorUnitario;
             ClienteId = clienteId;

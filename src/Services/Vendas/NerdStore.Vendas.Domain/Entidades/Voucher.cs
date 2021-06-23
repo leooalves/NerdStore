@@ -4,6 +4,7 @@ using FluentValidation;
 using NerdStore.Shared.Entidades;
 using NerdStore.Vendas.Domain.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace NerdStore.Vendas.Domain.Entidades
 {
@@ -20,8 +21,8 @@ namespace NerdStore.Vendas.Domain.Entidades
         public bool Ativo { get; private set; }
         public bool Utilizado { get; private set; }
 
-        // EF Rel.
-        //public ICollection<Pedido> Pedidos { get; set; }
+         //EF Rel.
+        public ICollection<Pedido> Pedidos { get; set; }
 
         internal void ValidarSeAplicavel()
         {

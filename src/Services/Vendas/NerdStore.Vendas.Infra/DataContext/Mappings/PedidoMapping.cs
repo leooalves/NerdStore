@@ -9,9 +9,7 @@ namespace NerdStore.Vendas.Infra.DataContext.Mappings
     public class PedidoMapping : IEntityTypeConfiguration<Pedido>
     {
         public void Configure(EntityTypeBuilder<Pedido> builder)
-        {
-            builder.HasKey(c => c.Id);
-
+        {            
             builder.Property(c => c.Codigo)
                 .HasDefaultValueSql("NEXT VALUE FOR MinhaSequencia");
 
