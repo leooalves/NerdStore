@@ -6,7 +6,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
 {
     public abstract class PedidosCommand : Command
     {
-        public Guid ClienteId { get; protected set; }
+        public Guid ClienteId { get; set; }
 
         public void AtribuiClienteId(Guid clienteId)
         {

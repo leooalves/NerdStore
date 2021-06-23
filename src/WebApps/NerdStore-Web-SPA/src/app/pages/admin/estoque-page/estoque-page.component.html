@@ -6,10 +6,10 @@
         </div>
         <div>
             <div class="uk-card-body">
-                <h2 class=""> <b>{{produto.nome}}</b> </h2>
-                <h2>{{ produto.valor | currency: 'BRL' }}</h2>
-                <p>Apenas {{produto.quantidadeEstoque}} em estoque</p>                
-                <p>{{produto.descricao}}</p>
+                <h2 class=""> <b>{{produto?.nome}}</b> </h2>
+                <h2>{{ produto?.valor | currency: 'BRL' }}</h2>
+                <p>Apenas {{produto?.quantidadeEstoque}} em estoque</p>                
+                <p>{{produto?.descricao}}</p>
 
                 <form [formGroup]="form">
                     

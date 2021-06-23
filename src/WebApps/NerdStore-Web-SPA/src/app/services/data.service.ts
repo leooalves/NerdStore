@@ -8,7 +8,7 @@ import { RespostaPadrao } from '../models/resposta.padrao.model';
 })
 export class DataService {
 
-    public url: string = "https://localhost:44386/api/v1";
+    public url: string = "http://localhost:5000/api/v1";
 
     constructor(private http: HttpClient) { }
 

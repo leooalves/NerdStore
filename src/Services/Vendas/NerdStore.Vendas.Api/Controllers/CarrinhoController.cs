@@ -32,7 +32,7 @@ namespace NerdStore.Vendas.Api.Controllers
         [Route("item")]
         public async Task<ActionResult<RespostaPadrao>> AdicionarItem(AdicionarItemPedidoCommand command)
         {
-            command.AtribuiClienteId(ClienteId);
+            command.ClienteId = ClienteId;
 
             return await _mediatrHandler.EnviarComando(command);
         }

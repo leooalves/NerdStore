@@ -2,3 +2,7 @@ img {
   max-height: 150px;
   max-width: 150px;
 }
+
+.preco-produto {
+  font-size: 1.8em;
+}
