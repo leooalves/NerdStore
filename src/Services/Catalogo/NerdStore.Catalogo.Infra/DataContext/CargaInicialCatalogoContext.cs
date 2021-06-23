@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NerdStore.Catalogo.Domain.Entidades;
 using System;
@@ -11,7 +12,8 @@ namespace NerdStore.Catalogo.Infra.DataContext
     public static class CargaInicialCatalogoContext
     {
         public static void Carregar(CatalogoContext catalogoContext)
-        {
+        {   
+                        
             catalogoContext.Database.Migrate();
             if (!catalogoContext.Categorias.Any())
             {

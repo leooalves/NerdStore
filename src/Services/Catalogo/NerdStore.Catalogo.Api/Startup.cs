@@ -74,6 +74,7 @@ namespace NerdStore.Catalogo.Api
             {
                 endpoints.MapControllers();
             });
-        }
+            
+        }    
     }
 }

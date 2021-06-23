@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NerdStore.Catalogo.Infra.DataContext;
 using NerdStore.Catalogo.Api.Setup;
+using Microsoft.Data.SqlClient;
+using System;
+using Polly;
 
 namespace NerdStore.Catalogo.Api
 {
@@ -18,7 +21,17 @@ namespace NerdStore.Catalogo.Api
 
                 var context = services.GetRequiredService<CatalogoContext>();
 
-                CargaInicialCatalogoContext.Carregar(context);
+                var retry = Policy.Handle<SqlException>()
+                 .WaitAndRetry(new TimeSpan[]
+                 {
+                             TimeSpan.FromSeconds(10),
+                             TimeSpan.FromSeconds(15),
+                             TimeSpan.FromSeconds(30),
+                 });
+
+                retry.Execute(() => CargaInicialCatalogoContext.Carregar(context));
+
+                //CargaInicialCatalogoContext.Carregar(context);
             }
 
             host.Run();

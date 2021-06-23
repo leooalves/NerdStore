@@ -1,8 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NerdStore.Vendas.Infra.DataContext;
+using Polly;
+using System;
 
 namespace NerdStore.Vendas.Api
 {
@@ -18,7 +21,17 @@ namespace NerdStore.Vendas.Api
 
                 var context = services.GetRequiredService<VendasContext>();
 
-                context.Database.Migrate();
+
+                var retry = Policy.Handle<SqlException>()
+                 .WaitAndRetry(new TimeSpan[]
+                 {
+                             TimeSpan.FromSeconds(10),
+                             TimeSpan.FromSeconds(15),
+                             TimeSpan.FromSeconds(30),
+                 });
+
+                retry.Execute(() => CargaInicialVendasContext.Carregar(context));                
+
             }
 
             host.Run();
