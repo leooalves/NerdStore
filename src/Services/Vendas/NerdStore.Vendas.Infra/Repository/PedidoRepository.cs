@@ -30,11 +30,13 @@ namespace NerdStore.Vendas.Infra.Repository
         }
         public async Task<IEnumerable<Pedido>> ObterPedidosPorClienteId(Guid clienteId)
         {
-            return await _vendasContext.Pedidos.AsNoTracking().Where(p => p.ClienteId == clienteId).ToListAsync();
+            return  await _vendasContext.Pedidos.AsNoTracking().Include(p=>p.PedidoItems).Where(p => p.ClienteId == clienteId).ToListAsync();
+
+       
         }
         public async Task<Pedido> ObterPedidoRascunhoPorClienteId(Guid clienteId)
         {
-            return await _vendasContext.Pedidos.FirstOrDefaultAsync(p => p.ClienteId == clienteId && p.PedidoStatus == EPedidoStatus.Rascunho);
+            return await _vendasContext.Pedidos.Include(p => p.PedidoItems).Include(p => p.Voucher).FirstOrDefaultAsync(p => p.ClienteId == clienteId && p.PedidoStatus == EPedidoStatus.Rascunho);
         }
 
         public void AdicionarPedido(Pedido pedido)

@@ -37,10 +37,11 @@ namespace NerdStore.Vendas.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "NerdStore.Vendas.Api", Version = "v1" });
             });
 
-            //services.AddDbContext<VendasContext>(opt => opt.UseInMemoryDatabase("Database"));            
+            //services.AddDbContext<VendasContext>(opt => opt.UseInMemoryDatabase("Database"));
             services.AddDbContext<VendasContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"));
+                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal"));                
             });
 
             services.AddMediatR(typeof(Startup));

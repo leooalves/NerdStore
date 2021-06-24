@@ -27,7 +27,7 @@ namespace NerdStore.Vendas.Infra.DataContext
         {
             return new List<Voucher>
         {
-            new Voucher("PROMO10",null,7,10,ETipoDescontoVoucher.Valor,DateTime.Now.AddMonths(1),true,false),
+            new Voucher("PROMO10",null,10,7,ETipoDescontoVoucher.Valor,DateTime.Now.AddMonths(1),true,false),
             new Voucher("5OFF",5,null,8,ETipoDescontoVoucher.Porcentagem,DateTime.Now.AddMonths(1),true,false) 
         };
     }
