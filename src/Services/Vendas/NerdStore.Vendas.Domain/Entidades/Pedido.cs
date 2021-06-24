@@ -55,7 +55,10 @@ namespace NerdStore.Vendas.Domain.Entidades
             }
 
             Voucher = voucher;
+            VoucherId = voucher.Id;
+            VoucherUtilizado = true;
             voucher.UtilizarVoucher();
+
             CalcularValorPedido();
 
             return true;

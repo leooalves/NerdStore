@@ -45,9 +45,16 @@ namespace NerdStore.Vendas.Domain.Entidades
         }
 
         internal void UtilizarVoucher()
-        {
-            Utilizado = true;
-            Quantidade -= 1;
+        {            
+            if(Quantidade == 0)
+            {
+                Utilizado = true;
+                DataUtilizacao = DateTime.Now;
+            }
+            else
+            {
+                Quantidade -= 1;
+            }            
         }
     }
 
