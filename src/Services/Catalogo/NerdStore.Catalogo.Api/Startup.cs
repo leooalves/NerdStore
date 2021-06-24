@@ -9,6 +9,8 @@ using Microsoft.OpenApi.Models;
 using NerdStore.Catalogo.Api.Setup;
 using NerdStore.Catalogo.Application.AutoMapper;
 using NerdStore.Catalogo.Infra.DataContext;
+using Rebus.ServiceProvider;
+using NerdStore.Shared.Messaging.IntegrationEvents;
 
 namespace NerdStore.Catalogo.Api
 {
@@ -24,6 +26,9 @@ namespace NerdStore.Catalogo.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.RegisterRebus();
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -46,6 +51,7 @@ namespace NerdStore.Catalogo.Api
             services.AddDbContext<CatalogoContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"));
+                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal"));
             });
 
             services.RegistrarDependencias();
@@ -58,6 +64,8 @@ namespace NerdStore.Catalogo.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            app.ApplicationServices.UseRebus();
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NerdStore.Catalogo.Api v1"));
@@ -74,7 +82,7 @@ namespace NerdStore.Catalogo.Api
             {
                 endpoints.MapControllers();
             });
-            
-        }    
+
+        }
     }
 }

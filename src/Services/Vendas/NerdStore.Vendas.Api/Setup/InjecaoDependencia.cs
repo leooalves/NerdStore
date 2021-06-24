@@ -29,10 +29,10 @@ namespace NerdStore.Vendas.Api.Setup
             services.AddScoped<IRequestHandler<CancelarProcessamentoPedidoCommand, RespostaPadrao>, PedidoCommandHandler>();
             services.AddScoped<IRequestHandler<CancelarProcessamentoPedidoEstornarEstoqueCommand, RespostaPadrao>, PedidoCommandHandler>();
 
-            services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoEstoqueRejeitadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoPagamentoRealizadoEvent>, PedidoEventHandler>();
-            services.AddScoped<INotificationHandler<PedidoPagamentoRecusadoEvent>, PedidoEventHandler>();
+            //services.AddScoped<INotificationHandler<PedidoRascunhoIniciadoEvent>, PedidoEventHandler>();
+            //services.AddScoped<INotificationHandler<PedidoEstoqueRejeitadoEvent>, PedidoEventHandler>();
+            //services.AddScoped<INotificationHandler<PedidoPagamentoRealizadoEvent>, PedidoEventHandler>();
+            //services.AddScoped<INotificationHandler<PedidoPagamentoRecusadoEvent>, PedidoEventHandler>();
         }
     }
 }

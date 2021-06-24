@@ -6,8 +6,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using NerdStore.Shared.Messaging.IntegrationEvents;
+using NerdStore.Vendas.Api.Application.Events;
 using NerdStore.Vendas.Api.Setup;
 using NerdStore.Vendas.Infra.DataContext;
+using Rebus.ServiceProvider;
 
 namespace NerdStore.Vendas.Api
 {
@@ -23,6 +26,8 @@ namespace NerdStore.Vendas.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.RegisterRebus();
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
@@ -41,7 +46,7 @@ namespace NerdStore.Vendas.Api
             services.AddDbContext<VendasContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"));
-                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal"));                
+                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal"));
             });
 
             services.AddMediatR(typeof(Startup));
@@ -58,6 +63,14 @@ namespace NerdStore.Vendas.Api
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NerdStore.Vendas.Api v1"));
             }
+
+            //app.ApplicationServices.UseRebus();
+                //q.Subscribe<PedidoRascunhoIniciadoEvent>().Wait();
+                //q.Subscribe<PedidoItemAdicionadoEvent>().Wait();
+                //q.Subscribe<PedidoEstoqueRejeitadoEvent>().Wait();
+                //q.Subscribe<PedidoPagamentoRealizadoEvent>().Wait();
+                //q.Subscribe<PedidoPagamentoRecusadoEvent>().Wait();
+        //    });
 
             app.UseHttpsRedirection();
 

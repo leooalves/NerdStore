@@ -24,14 +24,11 @@ namespace NerdStore.Vendas.Api.Application.Commands
         IRequestHandler<CancelarProcessamentoPedidoEstornarEstoqueCommand, RespostaPadrao>,
         IRequestHandler<CancelarProcessamentoPedidoCommand, RespostaPadrao>
     {
-        private readonly IPedidoRepository _pedidoRepository;
-        private readonly IMediatrHandler _mediatorHandler;
+        private readonly IPedidoRepository _pedidoRepository;        
 
-        public PedidoCommandHandler(IPedidoRepository pedidoRepository,
-                                    IMediatrHandler mediatorHandler)
+        public PedidoCommandHandler(IPedidoRepository pedidoRepository)
         {
-            _pedidoRepository = pedidoRepository;
-            _mediatorHandler = mediatorHandler;
+            _pedidoRepository = pedidoRepository;            
         }
 
         public async Task<RespostaPadrao> Handle(AdicionarItemPedidoCommand request, CancellationToken cancellationToken)

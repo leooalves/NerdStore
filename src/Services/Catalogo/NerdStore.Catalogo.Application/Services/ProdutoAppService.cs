@@ -5,6 +5,8 @@ using NerdStore.Catalogo.Domain.Entidades;
 using NerdStore.Catalogo.Domain.Repository;
 using NerdStore.Catalogo.Domain.Service;
 using NerdStore.Shared.Commands;
+using NerdStore.Shared.Messaging.IntegrationEvents;
+using Rebus.Bus;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -16,12 +18,14 @@ namespace NerdStore.Catalogo.Application.Services
         private readonly IProdutoRepository _produtoRepository;
         private readonly IEstoqueService _estoqueService;
         private readonly IMapper _mapper;
+        private readonly IBus _bus;
 
-        public ProdutoAppService(IProdutoRepository produtoRepository, IEstoqueService estoqueService, IMapper mapper)
+        public ProdutoAppService(IProdutoRepository produtoRepository, IEstoqueService estoqueService, IMapper mapper, IBus bus)
         {
             _produtoRepository = produtoRepository;
             _estoqueService = estoqueService;
             _mapper = mapper;
+            _bus = bus;
         }
 
         public async Task<ProdutoViewModel> ObterProdutoPorId(Guid id)
@@ -78,6 +82,9 @@ namespace NerdStore.Catalogo.Application.Services
                 return new RespostaPadrao("Erro ao atualizar o produto", false, produto.Notifications);
 
             _produtoRepository.Atualizar(produto);
+
+            if (produtoAnterior.Valor != produto.Valor)
+                await _bus.Publish(new ProdutoValorAlteradoEvent(produto.Id));
 
             var resultado = await _produtoRepository.UnitOfWork.Commit();
             if (resultado)

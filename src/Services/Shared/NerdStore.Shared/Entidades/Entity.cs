@@ -19,7 +19,7 @@ namespace NerdStore.Shared.Entidades
 
         public void AdicionarEvento(Event evento)
         {
-            _eventos = _eventos ?? new List<Event>();
+            _eventos ??= new List<Event>();
             _eventos.Add(evento);
         }
         public void LimparEventos()
