@@ -18,9 +18,10 @@ namespace NerdStore.Catalogo.Application.Services
 
         public async Task Handle(ProdutoValorAlteradoEvent message)
         {
+            //para test do rebus
             var produto = await _produtoRepository.ObterProdutoPorId(message.ProdutoId);
 
-            produto.AlterarDescricao(produto.Descricao + "valor alterado");
+            produto.AlterarDescricao(produto.Descricao + " valor alterado");
 
             _produtoRepository.Atualizar(produto);
 

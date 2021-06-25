@@ -3,7 +3,6 @@ using AutoMapper;
 using NerdStore.Catalogo.Application.ViewModel;
 using NerdStore.Catalogo.Domain.Entidades;
 using NerdStore.Catalogo.Domain.Repository;
-using NerdStore.Catalogo.Domain.Service;
 using NerdStore.Shared.Commands;
 using NerdStore.Shared.Messaging.IntegrationEvents;
 using Rebus.Bus;
@@ -15,15 +14,13 @@ namespace NerdStore.Catalogo.Application.Services
 {
     public class ProdutoAppService : IProdutoAppService
     {
-        private readonly IProdutoRepository _produtoRepository;
-        private readonly IEstoqueService _estoqueService;
+        private readonly IProdutoRepository _produtoRepository;        
         private readonly IMapper _mapper;
         private readonly IBus _bus;
 
-        public ProdutoAppService(IProdutoRepository produtoRepository, IEstoqueService estoqueService, IMapper mapper, IBus bus)
+        public ProdutoAppService(IProdutoRepository produtoRepository, IMapper mapper, IBus bus)
         {
-            _produtoRepository = produtoRepository;
-            _estoqueService = estoqueService;
+            _produtoRepository = produtoRepository;            
             _mapper = mapper;
             _bus = bus;
         }
@@ -113,20 +110,49 @@ namespace NerdStore.Catalogo.Application.Services
 
         public async Task<RespostaPadrao> DebitarEstoqueProduto(Guid produtoId, int quantidade)
         {
-            var resultado = await _estoqueService.DebitarEstoque(produtoId, quantidade);
+            var produto = await _produtoRepository.ObterProdutoPorId(produtoId);
+
+            if (produto == null)
+                return new RespostaPadrao("Produto não encontrado", false);
+
+            produto.DebitarEstoque(quantidade);
+            if (produto.EhInvalido)
+                return new RespostaPadrao("Não há produtos suficientes no estoque", false);
+
+            //if (produto.QuantidadeEstoque <= produto.QuantidadeMinimaReporEstoque)
+            //{
+            //    await IBus.Publish(new ProdutoAbaixoEstoqueEvent(produto.Id, produto.QuantidadeEstoque, produto.QuantidadeMinimaReporEstoque));
+            //}
+
+            _produtoRepository.Atualizar(produto);
+            var resultado = await _produtoRepository.UnitOfWork.Commit();
+
             if (resultado)
                 return new RespostaPadrao("Produto debitado do estoque com sucesso", true);
 
-            return new RespostaPadrao("Não há produtos suficientes no estoque", false);
+            return new RespostaPadrao("Erro ao debitar produto do estoque", false);
         }
 
         public async Task<RespostaPadrao> ReporEstoqueProduto(Guid produtoId, int quantidade)
         {
-            var resultado = await _estoqueService.ReporEstoque(produtoId, quantidade);
+            var produto = await _produtoRepository.ObterProdutoPorId(produtoId);
+
+            if (produto == null)
+                return new RespostaPadrao("Produto não encontrado", false);
+
+            produto.ReporEstoque(quantidade);
+            if (produto.EhInvalido)
+                return new RespostaPadrao("Erro ao repor o estoque", false);
+
+            _produtoRepository.Atualizar(produto);
+
+            var resultado = await _produtoRepository.UnitOfWork.Commit();
+
             if (resultado)
                 return new RespostaPadrao("Reposição de produto realizada com sucesso", true);
 
             return new RespostaPadrao("Erro ao fazer a reposição do estoque", false);
+
         }
 
 
