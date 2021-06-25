@@ -14,7 +14,7 @@ namespace NerdStore.Vendas.Infra.DataContext
         public static void Carregar(VendasContext vendasContext)
         {
 
-            vendasContext.Database.Migrate();
+             vendasContext.Database.Migrate();
             if (!vendasContext.Vouchers.Any())
             {
                 var vouchers = CargaVouchers();

@@ -33,9 +33,9 @@ namespace NerdStore.Catalogo.Api
             var nomeFila = "fila_rebus";
 
             services.AddRebus((configure, provider) => configure
-             //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(false), nomeFila))
-             //.Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila)) //sem docker
-             .Transport(t => t.UseRabbitMq("amqp://rabbitmq", nomeFila)) //com docker
+             //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(false), nomeFila))             
+             //.Transport(t => t.UseRabbitMq(Configuration["Rabbitmq"], nomeFila)) //com docker
+             .Transport(t => t.UseRabbitMq(Configuration["RabbitConnection"], nomeFila)) //com docker             
              .Routing(r => r.TypeBased()
                 .MapAssemblyOf<Message>(nomeFila)
                 .MapAssemblyOf<ProdutoValorAlteradoEvent>(nomeFila)
@@ -69,8 +69,7 @@ namespace NerdStore.Catalogo.Api
             //services.AddDbContext<VendasContext>(opt => opt.UseInMemoryDatabase("Database"));      
             services.AddDbContext<CatalogoContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")); //com docker
-                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal"));//sem docker
+                options.UseSqlServer(Configuration["ConnectionString"]);                 
             });
 
             services.RegistrarDependencias();
