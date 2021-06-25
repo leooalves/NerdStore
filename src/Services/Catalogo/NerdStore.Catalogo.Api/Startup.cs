@@ -9,8 +9,8 @@ using Microsoft.OpenApi.Models;
 using NerdStore.Catalogo.Api.Setup;
 using NerdStore.Catalogo.Application.AutoMapper;
 using NerdStore.Catalogo.Infra.DataContext;
-using Rebus.ServiceProvider;
 using NerdStore.Shared.Messaging.IntegrationEvents;
+using Rebus.ServiceProvider;
 
 namespace NerdStore.Catalogo.Api
 {
@@ -22,8 +22,7 @@ namespace NerdStore.Catalogo.Api
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -50,14 +49,13 @@ namespace NerdStore.Catalogo.Api
             //services.AddDbContext<VendasContext>(opt => opt.UseInMemoryDatabase("Database"));      
             services.AddDbContext<CatalogoContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("ConnectionString"));
-                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal"));
+                options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")); //com docker
+                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal"));//sem docker
             });
 
             services.RegistrarDependencias();
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -65,7 +63,7 @@ namespace NerdStore.Catalogo.Api
                 app.UseDeveloperExceptionPage();
             }
             
-            app.ApplicationServices.UseRebus();
+            app.ApplicationServices.UseRebus(q => q.Subscribe<ProdutoValorAlteradoEvent>());
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NerdStore.Catalogo.Api v1"));
