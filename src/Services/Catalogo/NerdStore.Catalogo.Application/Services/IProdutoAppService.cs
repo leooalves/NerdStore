@@ -1,6 +1,7 @@
 ﻿
 using NerdStore.Catalogo.Application.ViewModel;
 using NerdStore.Shared.Commands;
+using NerdStore.Shared.Entidades.DTO;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace NerdStore.Catalogo.Application.Services
         Task<RespostaPadrao> AdicionarCategoria(CategoriaViewModel categoriaViewModel);
 
         Task<RespostaPadrao> DebitarEstoqueProduto(Guid produtoId, int quantidade);
+        Task<RespostaPadrao> DebitarEstoqueListaProdutos(ListaProdutosPedido listaProdutos);
         Task<RespostaPadrao> ReporEstoqueProduto(Guid produtoId, int quantidade);
     }
 }

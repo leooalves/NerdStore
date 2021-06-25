@@ -4,6 +4,7 @@ using NerdStore.Catalogo.Application.ViewModel;
 using NerdStore.Catalogo.Domain.Entidades;
 using NerdStore.Catalogo.Domain.Repository;
 using NerdStore.Shared.Commands;
+using NerdStore.Shared.Entidades.DTO;
 using NerdStore.Shared.Messaging.IntegrationEvents;
 using Rebus.Bus;
 using System;
@@ -81,7 +82,7 @@ namespace NerdStore.Catalogo.Application.Services
             _produtoRepository.Atualizar(produto);
 
             if (produtoAnterior.Valor != produto.Valor)
-                await _bus.Publish(new ProdutoValorAlteradoEvent(produto.Id));
+                await _bus.Publish(new ProdutoValorAlteradoEvent(produto.Id, produto.Valor));
 
             var resultado = await _produtoRepository.UnitOfWork.Commit();
             if (resultado)
@@ -107,8 +108,7 @@ namespace NerdStore.Catalogo.Application.Services
 
         }
 
-
-        public async Task<RespostaPadrao> DebitarEstoqueProduto(Guid produtoId, int quantidade)
+        private async Task<RespostaPadrao> DebitarEstoque(Guid produtoId, int quantidade)
         {
             var produto = await _produtoRepository.ObterProdutoPorId(produtoId);
 
@@ -124,13 +124,41 @@ namespace NerdStore.Catalogo.Application.Services
             //    await IBus.Publish(new ProdutoAbaixoEstoqueEvent(produto.Id, produto.QuantidadeEstoque, produto.QuantidadeMinimaReporEstoque));
             //}
 
-            _produtoRepository.Atualizar(produto);
+            _produtoRepository.Atualizar(produto);            
+
+            return new RespostaPadrao("Produto debitado do estoque com sucesso", true);            
+        }
+
+        public async Task<RespostaPadrao> DebitarEstoqueProduto(Guid produtoId, int quantidade)
+        {             
+            var resposta = await DebitarEstoque(produtoId, quantidade);
+
+            if (!resposta.Sucesso)
+                return resposta;
+            
             var resultado = await _produtoRepository.UnitOfWork.Commit();
 
             if (resultado)
                 return new RespostaPadrao("Produto debitado do estoque com sucesso", true);
 
             return new RespostaPadrao("Erro ao debitar produto do estoque", false);
+        }
+
+        public async Task<RespostaPadrao> DebitarEstoqueListaProdutos(ListaProdutosPedido listaProdutos)
+        {
+            RespostaPadrao resposta = null;
+            foreach (var item in listaProdutos.Itens)
+            {
+                resposta = await DebitarEstoque(item.ProdutoId, item.Quantidade);
+
+                if (!resposta.Sucesso)
+                    break;
+            }
+          
+            if(resposta.Sucesso)
+                await _produtoRepository.UnitOfWork.Commit();
+
+            return resposta;
         }
 
         public async Task<RespostaPadrao> ReporEstoqueProduto(Guid produtoId, int quantidade)
@@ -152,9 +180,8 @@ namespace NerdStore.Catalogo.Application.Services
                 return new RespostaPadrao("Reposição de produto realizada com sucesso", true);
 
             return new RespostaPadrao("Erro ao fazer a reposição do estoque", false);
-
         }
 
-
+        
     }
 }

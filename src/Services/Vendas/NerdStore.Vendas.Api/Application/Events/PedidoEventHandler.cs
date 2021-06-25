@@ -1,35 +1,25 @@
 ﻿using NerdStore.Shared.Mediator;
 using NerdStore.Shared.Messaging.IntegrationEvents;
 using NerdStore.Vendas.Api.Application.Commands;
+using NerdStore.Vendas.Domain.Repository;
 using Rebus.Handlers;
 using System.Threading.Tasks;
 
 namespace NerdStore.Vendas.Api.Application.Events
 {
-    public class PedidoEventHandler :
-        IHandleMessages<PedidoRascunhoIniciadoEvent>,
-        IHandleMessages<PedidoItemAdicionadoEvent>,
+    public class PedidoEventHandler :        
         IHandleMessages<PedidoEstoqueRejeitadoEvent>,
         IHandleMessages<PedidoPagamentoRealizadoEvent>,
         IHandleMessages<PedidoPagamentoRecusadoEvent>
     {
 
         private readonly IMediatrHandler _mediatorHandler;
-        
+        private readonly IPedidoRepository _pedidoRepository;
 
-        public PedidoEventHandler(IMediatrHandler mediatorHandler)
+        public PedidoEventHandler(IMediatrHandler mediatorHandler, IPedidoRepository pedidoRepository)
         {
             _mediatorHandler = mediatorHandler;
-        }
-
-        public Task Handle(PedidoRascunhoIniciadoEvent notification)
-        {
-            return Task.CompletedTask;
-        }
-
-        public Task Handle(PedidoItemAdicionadoEvent notification)
-        {
-            return Task.CompletedTask;
+            _pedidoRepository = pedidoRepository;
         }
 
         public async Task Handle(PedidoEstoqueRejeitadoEvent message)
@@ -46,5 +36,6 @@ namespace NerdStore.Vendas.Api.Application.Events
         {
             await _mediatorHandler.EnviarComando(new CancelarProcessamentoPedidoEstornarEstoqueCommand(message.PedidoId, message.ClienteId));
         }
+    
     }
 }

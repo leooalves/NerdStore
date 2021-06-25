@@ -7,6 +7,7 @@ using NerdStore.Shared.Messaging.IntegrationEvents;
 using NerdStore.Vendas.Api.Application.Events;
 using NerdStore.Vendas.Domain.Entidades;
 using NerdStore.Vendas.Domain.Repository;
+using Rebus.Bus;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -24,11 +25,13 @@ namespace NerdStore.Vendas.Api.Application.Commands
         IRequestHandler<CancelarProcessamentoPedidoEstornarEstoqueCommand, RespostaPadrao>,
         IRequestHandler<CancelarProcessamentoPedidoCommand, RespostaPadrao>
     {
-        private readonly IPedidoRepository _pedidoRepository;        
+        private readonly IPedidoRepository _pedidoRepository;
+        private readonly IBus _bus;
 
-        public PedidoCommandHandler(IPedidoRepository pedidoRepository)
+        public PedidoCommandHandler(IPedidoRepository pedidoRepository, IBus bus)
         {
-            _pedidoRepository = pedidoRepository;            
+            _pedidoRepository = pedidoRepository;
+            _bus = bus;
         }
 
         public async Task<RespostaPadrao> Handle(AdicionarItemPedidoCommand request, CancellationToken cancellationToken)
@@ -49,8 +52,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
                     return RequisicaoComErro(pedido.Notifications);
 
                 _pedidoRepository.AdicionarPedido(pedido);
-                _pedidoRepository.AdicionarItem(pedidoItem);
-                pedido.AdicionarEvento(new PedidoRascunhoIniciadoEvent(pedido.ClienteId, pedido.Id));
+                _pedidoRepository.AdicionarItem(pedidoItem);                
             }
             else
             {
@@ -63,10 +65,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
                     _pedidoRepository.AdicionarItem(pedidoItem);
 
                 _pedidoRepository.AtualizarPedido(pedido);
-            }
-
-            pedido.AdicionarEvento(new PedidoItemAdicionadoEvent(pedido.ClienteId, pedido.Id, request.ProdutoId,
-                                    request.NomeProduto, request.ValorUnitario, request.Quantidade));
+            }      
 
             var commit = await _pedidoRepository.UnitOfWork.Commit();
             if (commit)
@@ -92,9 +91,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
             pedido.AtualizarUnidades(pedidoItem, request.Quantidade);
 
             _pedidoRepository.AtualizarItem(pedidoItem);
-            _pedidoRepository.AtualizarPedido(pedido);
-
-            pedido.AdicionarEvento(new PedidoProdutoAtualizadoEvent(pedido.ClienteId, pedido.Id, request.ProdutoId, request.Quantidade));
+            _pedidoRepository.AtualizarPedido(pedido);            
 
             var commit = await _pedidoRepository.UnitOfWork.Commit();
             if (commit)
@@ -122,16 +119,13 @@ namespace NerdStore.Vendas.Api.Application.Commands
             pedido.RemoverItem(itemPedido);
 
             _pedidoRepository.RemoverItem(itemPedido);
-            _pedidoRepository.AtualizarPedido(pedido);
-
-            pedido.AdicionarEvento(new PedidoProdutoRemovidoEvent(pedido.ClienteId, pedido.Id, request.ProdutoId));
+            _pedidoRepository.AtualizarPedido(pedido);            
 
             var commit = await _pedidoRepository.UnitOfWork.Commit();
             if (commit)
                 return RequisicaoCompletaComSucesso();
 
             return RequisicaoComErroCommit();
-
         }
 
         public async Task<RespostaPadrao> Handle(AplicarVoucherPedidoCommand request, CancellationToken cancellationToken)
@@ -152,8 +146,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
             if (pedido.EhInvalido)
                 return RequisicaoComErro(pedido.Notifications);
 
-            _pedidoRepository.AtualizarPedido(pedido);
-            pedido.AdicionarEvento(new VoucherAplicadoPedidoEvent(pedido.ClienteId, pedido.Id, voucher.Id));
+            _pedidoRepository.AtualizarPedido(pedido);            
 
             var commit = await _pedidoRepository.UnitOfWork.Commit();
             if (commit)
@@ -171,6 +164,8 @@ namespace NerdStore.Vendas.Api.Application.Commands
             var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(request.ClienteId);
             pedido.IniciarPedido();
 
+            
+
             //setup de objetos para o evento
             var itens = new List<Item>();
             foreach (var pedidoItem in pedido.PedidoItems)
@@ -178,7 +173,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
                 itens.Add(new Item { ProdutoId = pedidoItem.ProdutoId, Quantidade = pedidoItem.Quantidade });
             }
             var listaProdutosPedido = new ListaProdutosPedido { Itens = itens, PedidoId = pedido.Id };
-            pedido.AdicionarEvento(new PedidoIniciadoEvent(pedido.Id, pedido.ClienteId, listaProdutosPedido, pedido.ValorTotal, request.NomeCartao, request.NumeroCartao, request.ExpiracaoCartao, request.CvvCartao));
+            await _bus.Publish(new PedidoIniciadoEvent(pedido.Id, pedido.ClienteId, listaProdutosPedido, pedido.ValorTotal, request.NomeCartao, request.NumeroCartao, request.ExpiracaoCartao, request.CvvCartao));
 
             _pedidoRepository.AtualizarPedido(pedido);
 
@@ -205,7 +200,6 @@ namespace NerdStore.Vendas.Api.Application.Commands
                 return RequisicaoCompletaComSucesso();
 
             return RequisicaoComErroCommit();
-
         }
 
         public async Task<RespostaPadrao> Handle(CancelarProcessamentoPedidoEstornarEstoqueCommand request, CancellationToken cancellationToken)

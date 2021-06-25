@@ -8,8 +8,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NerdStore.Catalogo.Api.Setup;
 using NerdStore.Catalogo.Application.AutoMapper;
+using NerdStore.Catalogo.Application.Services;
 using NerdStore.Catalogo.Infra.DataContext;
+using NerdStore.Shared.Messaging;
 using NerdStore.Shared.Messaging.IntegrationEvents;
+using Rebus.Config;
+using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
 
 namespace NerdStore.Catalogo.Api
@@ -26,7 +30,23 @@ namespace NerdStore.Catalogo.Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.RegisterRebus();
+            var nomeFila = "fila_rebus";
+
+            services.AddRebus((configure, provider) => configure
+             //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(false), nomeFila))
+             //.Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila)) //sem docker
+             .Transport(t => t.UseRabbitMq("amqp://rabbitmq", nomeFila)) //com docker
+             .Routing(r => r.TypeBased()
+                .MapAssemblyOf<Message>(nomeFila)
+                .MapAssemblyOf<ProdutoValorAlteradoEvent>(nomeFila)
+                .MapAssemblyOf<PedidoEstoqueRejeitadoEvent>(nomeFila)
+                .MapAssemblyOf<PedidoEstoqueConfirmadoEvent>(nomeFila)
+                )
+            //.Subscriptions(s => s.StoreInMemory())             
+            );
+
+            // Register handlers 
+            services.AutoRegisterHandlersFromAssemblyOf<ProdutoEventHandler>();
 
             services.AddCors(options =>
             {
@@ -63,7 +83,10 @@ namespace NerdStore.Catalogo.Api
                 app.UseDeveloperExceptionPage();
             }
             
-            app.ApplicationServices.UseRebus(q => q.Subscribe<ProdutoValorAlteradoEvent>());
+            app.ApplicationServices.UseRebus(q => {
+                q.Subscribe<ProdutoValorAlteradoEvent>().Wait();
+                q.Subscribe<PedidoIniciadoEvent>().Wait();
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NerdStore.Catalogo.Api v1"));

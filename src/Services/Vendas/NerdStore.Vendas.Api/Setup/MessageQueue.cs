@@ -15,9 +15,9 @@ namespace NerdStore.Vendas.Api.Setup
 
             services.AddRebus((configure, provider) => configure
                  //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(false), nomeFila))
-                 //.Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila)) //sem docker
-                 .Transport(t => t.UseRabbitMq("amqp://rabbitmq", nomeFila)) //com  docker
-                 //.Routing(r => r.TypeBased().Map<ProdutoValorAlteradoEvent>(nomeFila))
+                 .Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila)) //sem docker
+                 //.Transport(t => t.UseRabbitMq("amqp://rabbitmq", nomeFila)) //com  docker
+                 .Routing(r => r.TypeBased().Map<PedidoIniciadoEvent>(nomeFila))
                 //.Subscriptions(s => s.StoreInMemory())             
              );
 

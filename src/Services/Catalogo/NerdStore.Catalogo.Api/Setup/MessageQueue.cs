@@ -17,7 +17,11 @@ namespace NerdStore.Catalogo.Api.Setup
              //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(false), nomeFila))
              //.Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila)) //sem docker
              .Transport(t => t.UseRabbitMq("amqp://rabbitmq", nomeFila)) //com docker
-             .Routing(r => r.TypeBased().Map<ProdutoValorAlteradoEvent>(nomeFila))
+             .Routing(r => r.TypeBased()
+                .Map<ProdutoValorAlteradoEvent>(nomeFila)                
+                .Map<PedidoEstoqueRejeitadoEvent>(nomeFila)
+                .Map<PedidoEstoqueConfirmadoEvent>(nomeFila)
+                )
             //.Subscriptions(s => s.StoreInMemory())             
             );         
 

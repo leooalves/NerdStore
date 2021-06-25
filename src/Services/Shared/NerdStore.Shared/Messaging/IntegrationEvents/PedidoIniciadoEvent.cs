@@ -7,8 +7,8 @@ namespace NerdStore.Shared.Messaging.IntegrationEvents
     {
         public Guid PedidoId { get; private set; }
         public Guid ClienteId { get; private set; }
-        public decimal Total { get; private set; }
-        public ListaProdutosPedido ProdutosPedido { get; private set; }
+        public decimal Total { get; private set; }        
+        public ListaProdutosPedido ProdutosPedido { get; set; }
         public string NomeCartao { get; private set; }
         public string NumeroCartao { get; private set; }
         public string ExpiracaoCartao { get; private set; }
@@ -26,5 +26,6 @@ namespace NerdStore.Shared.Messaging.IntegrationEvents
             ExpiracaoCartao = expiracaoCartao;
             CvvCartao = cvvCartao;
         }
+        
     }
 }

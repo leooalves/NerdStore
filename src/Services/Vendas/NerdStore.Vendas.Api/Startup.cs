@@ -6,8 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using NerdStore.Shared.Messaging;
+using NerdStore.Shared.Messaging.IntegrationEvents;
+using NerdStore.Vendas.Api.Application.Events;
 using NerdStore.Vendas.Api.Setup;
 using NerdStore.Vendas.Infra.DataContext;
+using Rebus.Config;
+using Rebus.Routing.TypeBased;
 using Rebus.ServiceProvider;
 
 namespace NerdStore.Vendas.Api
@@ -24,7 +29,22 @@ namespace NerdStore.Vendas.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.RegisterRebus();
+            var nomeFila = "fila_rebus";
+
+            services.AddRebus((configure, provider) => configure
+                 //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(false), nomeFila))
+                 //.Transport(t => t.UseRabbitMq("amqp://localhost", nomeFila)) //sem docker
+                 .Transport(t => t.UseRabbitMq("amqp://rabbitmq", nomeFila)) //com  docker
+                 .Routing(r => 
+                    r.TypeBased()
+                        .MapAssemblyOf<Message>(nomeFila)
+                        .MapAssemblyOf<PedidoIniciadoEvent>(nomeFila)
+                        )
+             //.Subscriptions(s => s.StoreInMemory())             
+             );
+
+            // Register handlers 
+            services.AutoRegisterHandlersFromAssemblyOf<PedidoEventHandler>();
 
             services.AddCors(options =>
             {
@@ -44,7 +64,7 @@ namespace NerdStore.Vendas.Api
             services.AddDbContext<VendasContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ConnectionString")); //com docker
-                //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal")); //sem docker
+               //options.UseSqlServer(Configuration.GetConnectionString("ConnectionStringLocal")); //sem docker
             });
 
             services.AddMediatR(typeof(Startup));
@@ -62,7 +82,10 @@ namespace NerdStore.Vendas.Api
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "NerdStore.Vendas.Api v1"));
             }
 
-            app.ApplicationServices.UseRebus();        
+            app.ApplicationServices.UseRebus(q => {
+                q.Subscribe<PedidoEstoqueConfirmadoEvent>().Wait();
+                q.Subscribe<PedidoEstoqueRejeitadoEvent>().Wait();
+            });         
 
             app.UseHttpsRedirection();
 
