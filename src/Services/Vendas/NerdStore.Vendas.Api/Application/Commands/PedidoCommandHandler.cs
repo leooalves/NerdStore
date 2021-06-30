@@ -23,7 +23,8 @@ namespace NerdStore.Vendas.Api.Application.Commands
         IRequestHandler<AplicarVoucherPedidoCommand, RespostaPadrao>,
         IRequestHandler<FinalizarPedidoCommand, RespostaPadrao>,
         IRequestHandler<CancelarProcessamentoPedidoEstornarEstoqueCommand, RespostaPadrao>,
-        IRequestHandler<CancelarProcessamentoPedidoCommand, RespostaPadrao>
+        IRequestHandler<CancelarProcessamentoPedidoCommand, RespostaPadrao>,
+        IRequestHandler<LimparCarrinhoCommand, RespostaPadrao>
     {
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IBus _bus;
@@ -242,6 +243,37 @@ namespace NerdStore.Vendas.Api.Application.Commands
             return RequisicaoComErroCommit();
         }
 
+        public async Task<RespostaPadrao> Handle(LimparCarrinhoCommand request, CancellationToken cancellationToken)
+        {
+            request.Validar();
+            if (request.EhInvalido)
+                return RequisicaoComErro(request.Notifications);
+
+
+            var pedido = await _pedidoRepository.ObterPedidoRascunhoPorClienteId(request.ClienteId);
+            if (pedido == null)
+                return RequisicaoComErro("Pedido não existe");
+
+            var itens = pedido.PedidoItems;
+
+
+            for (int i = pedido.PedidoItems.Count; i >0 ; i--)
+            {
+                var item = pedido.PedidoItems.Last();
+                _pedidoRepository.RemoverItem(item);
+                pedido.RemoverItem(item);
+                
+            }
+            
+            _pedidoRepository.AtualizarPedido(pedido);
+
+            var commit = await _pedidoRepository.UnitOfWork.Commit();
+            if (commit)
+                return RequisicaoCompletaComSucesso();
+
+            return RequisicaoComErroCommit();
+        }
+
         private RespostaPadrao RequisicaoCompletaComSucesso()
         {
             return new RespostaPadrao("Requisicão completa com sucesso", true);
@@ -260,6 +292,6 @@ namespace NerdStore.Vendas.Api.Application.Commands
             return new RespostaPadrao("Erro ao salvar a requisição", false);
         }
 
-
+     
     }
 }

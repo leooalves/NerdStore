@@ -33,7 +33,9 @@ namespace NerdStore.Vendas.Api.Controllers
         [Route("")]
         public async Task<ActionResult<RespostaPadrao>> LimparCarrinho()
         {
-            return Ok(await _pedidoQueries.ObterCarrinhoCliente(ClienteId));
+            var command = new LimparCarrinhoCommand(ClienteId);
+
+            return await _mediatrHandler.EnviarComando(command);
         }
 
         [HttpPost]

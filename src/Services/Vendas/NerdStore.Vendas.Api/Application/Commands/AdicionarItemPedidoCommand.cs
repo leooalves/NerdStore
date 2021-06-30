@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using NerdStore.Shared.Commands;
 using System;
 
 namespace NerdStore.Vendas.Api.Application.Commands
@@ -26,6 +25,7 @@ namespace NerdStore.Vendas.Api.Application.Commands
         }
 
     }
+
 
     public class AdicionarItemPedidoValidator : AbstractValidator<AdicionarItemPedidoCommand>
     {
