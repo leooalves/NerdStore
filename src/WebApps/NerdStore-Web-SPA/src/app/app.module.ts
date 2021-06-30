@@ -16,6 +16,7 @@ import { EditarProdutoPageComponent } from './pages/admin/editar-produto-page/ed
 import { NovoProdutoPageComponent } from './pages/admin/novo-produto-page/novo-produto-page.component';
 import { CatalogoPageComponent } from './pages/catalogo-page/catalogo-page.component';
 import { EstoquePageComponent } from './pages/admin/estoque-page/estoque-page.component';
+import { MeuCarrinhoPageComponent } from './pages/meu-carrinho-page/meu-carrinho-page.component';
 
 
 
@@ -31,7 +32,8 @@ import { EstoquePageComponent } from './pages/admin/estoque-page/estoque-page.co
     EditarProdutoPageComponent,
     NovoProdutoPageComponent,
     CatalogoPageComponent,
-    EstoquePageComponent
+    EstoquePageComponent,
+    MeuCarrinhoPageComponent
   ],
   imports: [
     BrowserModule,

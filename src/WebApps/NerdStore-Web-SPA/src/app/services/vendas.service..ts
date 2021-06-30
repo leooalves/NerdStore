@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Produto } from '../models/produto.model';
 import { RespostaPadrao } from '../models/resposta.padrao.model';
+import { Carrinho } from '../models/carrinho.model';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,14 @@ export class VendasService {
 
     enviaItemCarrinho(itemCarrinho: any) {
         return this.http.post<RespostaPadrao>(`${this.url}/carrinho/item/`, itemCarrinho)
+    }
+
+    retornaCarrinho() {
+        return this.http.get<Carrinho>(`${this.url}/carrinho`);
+    }
+
+    removeItemCarrinho(item: string) {
+        return this.http.delete<RespostaPadrao>(`${this.url}/carrinho/item/${item}`)
     }
 
 

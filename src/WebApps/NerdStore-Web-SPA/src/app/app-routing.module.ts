@@ -6,6 +6,7 @@ import { NovoProdutoPageComponent } from './pages/admin/novo-produto-page/novo-p
 import { AdminProdutosPageComponent } from './pages/admin/produtos-page/produtos-page.component';
 import { CatalogoPageComponent } from './pages/catalogo-page/catalogo-page.component';
 import { MasterPageComponent } from './pages/master-page/master-page.component';
+import { MeuCarrinhoPageComponent } from './pages/meu-carrinho-page/meu-carrinho-page.component';
 
 const routes: Routes = [
   {
@@ -13,6 +14,13 @@ const routes: Routes = [
     component: MasterPageComponent,
     children: [
       { path: "", component: CatalogoPageComponent },
+    ]
+  },
+  {
+    path: "meu-carrinho",
+    component: MasterPageComponent,
+    children: [
+      { path: "", component: MeuCarrinhoPageComponent },
     ]
   },
   {

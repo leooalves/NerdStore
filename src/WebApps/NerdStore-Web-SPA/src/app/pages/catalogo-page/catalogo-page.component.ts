@@ -29,13 +29,17 @@ export class CatalogoPageComponent implements OnInit {
       produtoId: produto.id,
       nomeProduto: produto.nome,
       quantidade: 1,
-      valorUnitario: produto.valor,
-      clienteId: ""
+      valorUnitario: produto.valor
     }
 
-    this.vendas.enviaItemCarrinho(item).subscribe(resposta => console.log(resposta));
-    console.log(item)
-    this.toastr.success("Produto adicionado ao carrinho com sucesso")
+    this.vendas.enviaItemCarrinho(item).subscribe(resposta => {
+      if (resposta.sucesso) {
+        this.toastr.success("Produto adicionado ao carrinho com sucesso")
+      } else {
+        this.toastr.error(resposta.mensagem);
+      }
+    });
+
   }
 
 
