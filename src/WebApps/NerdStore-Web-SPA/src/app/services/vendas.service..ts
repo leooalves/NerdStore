@@ -33,6 +33,12 @@ export class VendasService {
         return this.http.delete<RespostaPadrao>(`${this.url}/carrinho/item/${item}`)
     }
 
+    limparCarrinho() {
+        return this.http.delete<RespostaPadrao>(`${this.url}/carrinho`)
+    }
 
+    aplicarVoucher(voucher: any) {
+        return this.http.post<RespostaPadrao>(`${this.url}/carrinho/voucher/`, voucher)
+    }
 
 }

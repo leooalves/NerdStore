@@ -4,9 +4,9 @@ export class Carrinho {
     public subTotal: number;
     public valorTotal: number;
     public valorDesconto: number;
-    public voucherCodigo: string;
+    public voucherCodigo: string = "";
 
-    public items: ItemCarrinho[];
+    public items: ItemCarrinho[] = [];
     public pagamento: any;
 
     constructor() {
