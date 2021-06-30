@@ -4,6 +4,7 @@ using NerdStore.Shared.Mediator;
 using NerdStore.Vendas.Api.Application.Commands;
 using NerdStore.Vendas.Api.Application.Queries;
 using NerdStore.Vendas.Api.Application.Queries.ViewModels;
+using System;
 using System.Threading.Tasks;
 
 namespace NerdStore.Vendas.Api.Controllers
@@ -28,6 +29,13 @@ namespace NerdStore.Vendas.Api.Controllers
             return Ok(await _pedidoQueries.ObterCarrinhoCliente(ClienteId));
         }
 
+        [HttpDelete]
+        [Route("")]
+        public async Task<ActionResult<RespostaPadrao>> LimparCarrinho()
+        {
+            return Ok(await _pedidoQueries.ObterCarrinhoCliente(ClienteId));
+        }
+
         [HttpPost]
         [Route("item")]
         public async Task<ActionResult<RespostaPadrao>> AdicionarItem(AdicionarItemPedidoCommand command)
@@ -38,10 +46,10 @@ namespace NerdStore.Vendas.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("item")]
-        public async Task<ActionResult<RespostaPadrao>> RemoverItem(RemoverItemPedidoCommand command)
+        [Route("item/{id:guid}")]
+        public async Task<ActionResult<RespostaPadrao>> RemoverItem(Guid id)
         {
-            command.AtribuiClienteId(ClienteId);
+            var command = new RemoverItemPedidoCommand(ClienteId, id);            
 
             return await _mediatrHandler.EnviarComando(command);
         }

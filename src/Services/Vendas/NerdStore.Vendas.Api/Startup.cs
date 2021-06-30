@@ -34,11 +34,11 @@ namespace NerdStore.Vendas.Api
             services.AddRebus((configure, provider) => configure
                  //.Transport(t => t.UseInMemoryTransport(new InMemNetwork(false), nomeFila))                 
                  .Transport(t => t.UseRabbitMq(Configuration["RabbitConnection"], nomeFila))                  
-                 .Routing(r => 
-                    r.TypeBased()
-                        .MapAssemblyOf<Message>(nomeFila)
-                        .MapAssemblyOf<PedidoIniciadoEvent>(nomeFila)
-                        )
+                 //.Routing(r => 
+                 //   r.TypeBased()
+                 //       .MapAssemblyOf<Message>(nomeFila)
+                 //       .MapAssemblyOf<PedidoIniciadoEvent>(nomeFila)
+                 //       )
              //.Subscriptions(s => s.StoreInMemory())             
              );
 
@@ -81,8 +81,8 @@ namespace NerdStore.Vendas.Api
             }
 
             app.ApplicationServices.UseRebus(q => {
-                q.Subscribe<PedidoEstoqueConfirmadoEvent>().Wait();
-                q.Subscribe<PedidoEstoqueRejeitadoEvent>().Wait();
+                //q.Subscribe<PedidoEstoqueConfirmadoEvent>().Wait();
+                //q.Subscribe<PedidoEstoqueRejeitadoEvent>().Wait();
             });         
 
             app.UseHttpsRedirection();

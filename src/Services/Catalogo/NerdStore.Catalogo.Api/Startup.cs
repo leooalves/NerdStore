@@ -37,10 +37,10 @@ namespace NerdStore.Catalogo.Api
              //.Transport(t => t.UseRabbitMq(Configuration["Rabbitmq"], nomeFila)) //com docker
              .Transport(t => t.UseRabbitMq(Configuration["RabbitConnection"], nomeFila)) //com docker             
              .Routing(r => r.TypeBased()
-                .MapAssemblyOf<Message>(nomeFila)
-                .MapAssemblyOf<ProdutoValorAlteradoEvent>(nomeFila)
-                .MapAssemblyOf<PedidoEstoqueRejeitadoEvent>(nomeFila)
-                .MapAssemblyOf<PedidoEstoqueConfirmadoEvent>(nomeFila)
+                //.MapAssemblyOf<Message>(nomeFila)
+                //.MapAssemblyOf<ProdutoValorAlteradoEvent>(nomeFila)
+                //.MapAssemblyOf<PedidoEstoqueRejeitadoEvent>(nomeFila)
+                //.MapAssemblyOf<PedidoEstoqueConfirmadoEvent>(nomeFila)
                 )
             //.Subscriptions(s => s.StoreInMemory())             
             );
@@ -83,8 +83,8 @@ namespace NerdStore.Catalogo.Api
             }
             
             app.ApplicationServices.UseRebus(q => {
-                q.Subscribe<ProdutoValorAlteradoEvent>().Wait();
-                q.Subscribe<PedidoIniciadoEvent>().Wait();
+                //q.Subscribe<ProdutoValorAlteradoEvent>().Wait();
+                //q.Subscribe<PedidoIniciadoEvent>().Wait();
             });
 
             app.UseSwagger();

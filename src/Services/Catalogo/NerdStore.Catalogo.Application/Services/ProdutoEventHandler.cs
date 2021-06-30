@@ -33,6 +33,7 @@ namespace NerdStore.Catalogo.Application.Services
 
             _produtoRepository.Atualizar(produto);
 
+
             await _produtoRepository.UnitOfWork.Commit();
         }
 
